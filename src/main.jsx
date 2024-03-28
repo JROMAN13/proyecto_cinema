@@ -9,7 +9,7 @@ import SelectDate from './layout/Navbar/SelectDate.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     {/* <App /> */}
-    {/* <Header></Header> */}
-    <SelectDate/>
+    <Header></Header>
+    {/* <SelectDate/> */}
   </React.StrictMode>,
 )

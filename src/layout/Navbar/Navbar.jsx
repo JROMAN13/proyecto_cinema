@@ -2,6 +2,7 @@ import React from 'react'
 import 'flowbite';
 import icon from '../../assets/Icons.png'
 import SelectCinema from './SelectCinema';
+import SelectDate from './SelectDate';
 
 const Navbar = () => {
   return (
@@ -12,7 +13,7 @@ const Navbar = () => {
             <img src={icon} className="h-8" alt="Flowbite Logo" />
             <span className="textPrimary self-center text-xl font-medium whitespace-nowrap text-gray-200">CINE COLOMBIA</span>
         </a>
-        <div className="flex items-center md:order-3 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <div className="flex items-center md:order-4 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
               <span className="sr-only">Open user menu</span>
               <div className="relative w-10 h-10 overflow-hidden bg-blue-button rounded-full">
@@ -58,6 +59,7 @@ const Navbar = () => {
           </ul>
         </div>
         <SelectCinema/>
+        <SelectDate/> 
         <div></div>
       </div>
     </nav>
