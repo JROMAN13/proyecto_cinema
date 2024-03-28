@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Outlet = () => {
+const Navbar = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Outlet = () => {
   )
 }
 
-export default Outlet
+export default Navbar
