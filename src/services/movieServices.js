@@ -6,7 +6,7 @@ export const getAllMovies=async()=>{
 
     try {
         const {data}=await axios.get(endpoint.getAllMovies);
-        return data
+        return data.results
         
     } catch (error) {
         console.error(error);
