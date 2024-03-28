@@ -1,6 +1,6 @@
 const API_TMDB_BASE=`https://api.themoviedb.org/3/movie/`
 const API_TMDB=`${API_TMDB_BASE}now_playing`
-const API_KEY=`33d8c677ac3dca2b6ec7d121f7324a9e`
+const API_KEY=`0796a7a279ae0c5e17ea87dc788ac2ba`
 
 const endpoint={
     getAllMovies:`${API_TMDB}?api_key=${API_KEY}&language=es-ES`,
