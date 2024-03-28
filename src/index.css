@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+    .textPrimary {
+        font-family: "Inter", sans-serif;
+    }
+    .textSecundary{ font-family: "Roboto", sans-serif;}
+
+  }

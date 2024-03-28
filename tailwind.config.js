@@ -1,3 +1,5 @@
+import { Button } from 'flowbite-react'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -6,6 +8,10 @@ export default {
     'node_modules/flowbite-react/lib/esm/**/*.js'
   ],
   theme: {
+    colors:{
+      'blue-button':'#1C508DFF',
+      'gray-text':' #565D6DFF'
+    },
     extend: {},
   },
   plugins: [
