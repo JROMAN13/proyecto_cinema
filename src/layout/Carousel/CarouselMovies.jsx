@@ -3,7 +3,6 @@ import { getAllMovies } from '../../services/movieServices';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { left } from '@popperjs/core';
 
 
 function SampleNextArrow(props) {
@@ -11,7 +10,7 @@ function SampleNextArrow(props) {
     return (
         <div
             className={className}
-            style={{ ...style, display: "block", background: "transparent", marginRight: "30px", zIndex: 1, height: "100%", color: "transparent", opacity: "0" }}
+            style={{ ...style, display: "block", background: "transparent", marginRight: "30px", zIndex: 1,width:"30px", height: "100%", color: "transparent", opacity: "0" }}
             onClick={onClick}
         />
     );
@@ -22,7 +21,7 @@ function SamplePrevArrow(props) {
     return (
         <div
             className={className}
-            style={{ ...style, display: "block", background: "transparent", marginLeft: "30px", zIndex: 1, height: "100%", color: "transparent", opacity: "0" }}
+            style={{ ...style, display: "block", background: "transparent", marginLeft: "30px", zIndex: 1,width:"30px", height: "100%", color: "transparent", opacity: "0" }}
             onClick={onClick}
         />
     );
@@ -35,7 +34,8 @@ const CarouselMovies = () => {
     function handleClick(idImage) {
 
         const imageSelected= document.getElementById(idImage);
-        console.log(imageSelected);     
+        imageSelected.classList.add("imgActive")
+        console.log("imagen seleccionada", imageSelected)
     }
     
     const [movies, setMovies] = useState([]);
@@ -62,7 +62,8 @@ const CarouselMovies = () => {
 
 
     return (
-        <div className='w-full bg-black'>
+        <>
+        <div className='w-full'>
             <div className='mt-20'>
                 <Slider {...settings}>
                     {
@@ -70,13 +71,11 @@ const CarouselMovies = () => {
                             (movie, index) => {
                                 // console.log(`${urlBaseImage}${movie.poster_path}`)
                                 // console.log("movie",movie.poster_path)
-
-
                                 const idImage = `image${index}`
                                 return (
-                                    <div key={index} className='bg-white h-[100%] text-black rounder-xl'>
+                                    <div id={idImage} key={index} className='bg-white h-[100%] text-black rounder-xl'>
                                         <div className='h-90 rounder-t-xl  flex justify-center items-center' >
-                                            <img id={idImage} src={`${urlBaseImage}${movie.poster_path}`} onClick={() => handleClick(idImage)} className='w-full rouded full hover:cursor-pointer ' />
+                                            <img  src={`${urlBaseImage}${movie.poster_path}`} onClick={() => handleClick(idImage)} className='w-full rouded full hover:cursor-pointer ' />
                                         </div>
                                         <div></div>
                                     </div>
@@ -88,6 +87,7 @@ const CarouselMovies = () => {
             </div>
 
         </div>
+        </>
     )
 }
 
