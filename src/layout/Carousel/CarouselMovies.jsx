@@ -97,23 +97,24 @@ const CarouselMovies = () => {
     return (
         <>
         <div className='w-full'>
-            <div className='mt-20'>
+            <div className='md:mt-20 sm:mt-10'>
                 <Slider {...settings}>
                      {movies.map((movie, index) => {
                         return (
                             <div key={index} className={`image-container ${selectedImageIndex === index ? 'selected' : ''} rounded-lg`}   onClick={() => handleClick(index)}>
                                 <img src={`${urlBaseImage}${movie.poster_path}`} alt={`Movie ${index}`} className='image rounded-lg ' /> 
                                 <div className='w-[inherit] bg-[#050505a0] absolute  flex flex-col justify-center items-center md:top-2/4 sm:top-0 rounded-lg bg-[#05050552] '>
-                                    <h2 className='textPrimary text-center md:text-2xl sm:text-lg font-bold text-white '>{movie.title}</h2>
-                                    <p className='px-5 mt-1 md:text-base sm:text-sm text-center textSecundary text-white'>Título en inglés: {movie.original_title}</p>
-                                    <h3 className='px-5 mt-2 md:text-lg sm:text-base text-center textSecundary text-white'>Estreno: {new Date(movie.release_date).toLocaleDateString('es-ES', formatDate)}</h3>
-                                    <h3 className= 'px-5 md:text-lg sm:text-base text-center textSecundary text-white'>Género: {
+                                    <h2 className='mt-1 mx-7 textPrimary text-center md:text-2xl sm:text-base sm:mx-2 font-bold text-white '>{movie.title}</h2>
+                                    <p className='mx-6 px-5 mt-1 md:text-base sm:text-sm sm:px-1 sm:mx-1 text-center textSecundary text-white'>Título en inglés: {movie.original_title}</p>
+                                    <h3 className='mx-7 px-5 mt-2 md:text-base sm:text-sm sm:px-1 sm:mx-1 s:mt-1 text-center textSecundary text-white'>Estreno: {new Date(movie.release_date).toLocaleDateString('es-ES', formatDate)}</h3>
+                                    <h3 className= 'mx-2 mb-2 px-5 md:text-base sm:text-sm sm:px-1 sm:mx-1 text-center textSecundary text-white'>Género: {
                                         findNameGenres(movie.genre_ids,genres)
                                     
                                     }</h3>
                                 {selectedImageIndex === index && (
-                                        <div className='additional-section flex-wrap mt-2'>
-                                            <p className='p-2 mx-2 bg-white text-sm'>{movie.adult==false ? "Para todo publico" : 'Mayores de 18'}</p>
+                                        <div className='mb-2 w-full flex-wrap flex flex-row justify-center gap-2'>
+                                            <p className='textSecundary px-2 py-1 bg-white md:text-xs sm:text-xs '>{movie.adult==false ? "Para todo publico" : 'Mayores de 18'}</p>
+                                            <p className='textSecundary px-2 py-1 bg-white md:text-xs sm:text-xs'>115 min</p>
                                             {/* <p className='p-2 mx-2 bg-white text-sm '>{getMovieDetails(movie.id)}</p> */}
                                         </div>
                                 )}
