@@ -4,10 +4,10 @@ import CarouselMovies from './Carousel/CarouselMovies'
 
 const Header = () => {
   return (
-    <div>
+    <header className='bg-black'>
       <Navbar/>
       <CarouselMovies/>
-    </div>
+    </header>
   )
 }
 

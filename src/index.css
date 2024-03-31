@@ -10,20 +10,13 @@
     .textSecundary{ font-family: "Roboto", sans-serif;}
 
     body{
-        background-color: black;
+        background-color: white;
     }
 
-    .imgActive{
-        /* box-shadow: 2px 7px 25px 1px rgba(86,93,109,0.75); */
-        /* box-shadow: 0px 0px 47px 12px rgba(255,255,255,1); */
-        /* padding: 10px; */
-        box-shadow: 0px 0px 47px 40px rgba(255,255,255,1);     
-       
-    }
     .image-container {
         position: relative;
         cursor: pointer;
-        opacity: 0.5; 
+        opacity: 0.6; 
     }
     
     .image-container.selected {
@@ -33,5 +26,12 @@
         margin:5px 3px;
         transform: scale3d(1.2);
     }
-    
+   
+      .text-blur{
+        background: rgba(5,5,5,0.4);
+        -webkit-backdrop-filter: blur(1px);
+        backdrop-filter: blur(1px);
+        border: 1px solid rgba(5,5,5,0.2);
+      }
+      
   }
