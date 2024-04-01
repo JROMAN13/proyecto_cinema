@@ -35,7 +35,7 @@ export const getTrailerMovie=async(idMovie)=>{
     }
 }
 
-export const getMoviesGenres = async (id) =>{
+export const getMoviesGenres = async () =>{
     try {
         const {data} = await axios.get(endpoint.getGenresMovies);
         return data.genres    

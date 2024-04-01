@@ -11,6 +11,15 @@ const SelectCinema = () => {
         }).catch((error)=> console.error(error));
     },[])
 
+    // const getCinemaSelected =()=>{
+    //   try {
+    //     setSelectedCinema()
+    //   } catch (error) {
+    //     console.log(error)
+    //     return null
+    //   }
+    // }
+
   return (
     <form className="md:order-2">
           <label htmlFor="countries" className="block mb-2 text-base font-semibold text-gray-text textSecundary ">Cines cercanos</label>
