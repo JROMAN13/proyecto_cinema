@@ -3,6 +3,7 @@ import { getAllCinemas } from '../../services/cinemaServices';
 
 const SelectCinema = () => {
     const [cinemas, setCinemas] = useState([])
+    const [selectedCinema,setSelectedCinema]=useState("")
     useEffect(()=>{
        getAllCinemas().then((response)=>{
         // console.log(response);

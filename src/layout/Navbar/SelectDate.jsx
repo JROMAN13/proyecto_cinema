@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import 'flowbite';
-import Datepicker from "tailwind-datepicker-react"
+import Datepicker from 'tailwind-datepicker-react'
 const today = new Date();
 today.setDate(today.getDate() - 1);
 

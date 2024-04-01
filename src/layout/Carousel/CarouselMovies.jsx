@@ -133,4 +133,4 @@ const CarouselMovies = () => {
 
 
 
-export default CarouselMovies
+export default CarouselMovies;

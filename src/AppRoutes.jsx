@@ -1,15 +1,17 @@
 import React from 'react'
+import Layout from './layout/Layout'
+import CardList from './components/CardList'
+import { Route, Routes } from 'react-router'
 
 const AppRoutes = () => {
   return (
     <>
       <Routes>
         <Route element={<Layout></Layout>}>
-          <Route path="page1" element={<Page1></Page1>}>
-            {/* <Route path=':id' element={<PageId></PageId>}></Route> */}
+          <Route index element={<CardList></CardList>}>
           </Route>
         </Route>
-        <Route index element={<Card></Card>}></Route>
+        {/* <Route index element={<Card></Card>}></Route> */}
       </Routes>
     </>
   )
