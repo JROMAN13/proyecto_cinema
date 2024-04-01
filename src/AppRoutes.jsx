@@ -2,14 +2,15 @@ import React from 'react'
 import Layout from './layout/Layout'
 import CardList from './components/CardList'
 import { Route, Routes } from 'react-router'
+import Seats from './components/Seats'
 
 const AppRoutes = () => {
   return (
     <>
       <Routes>
         <Route element={<Layout></Layout>}>
-          <Route index element={<CardList></CardList>}>
-          </Route>
+          <Route index element={<CardList/>}></Route>
+          <Route path='seats' element={<Seats/>}></Route>
         </Route>
         {/* <Route index element={<Card></Card>}></Route> */}
       </Routes>

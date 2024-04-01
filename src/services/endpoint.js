@@ -8,7 +8,9 @@ const endpoint={
     getAllMovies:`${API_TMDB}?api_key=${API_KEY}&language=es-ES`,
     getMovie:(idMovie)=>`${API_TMDB_BASE}${idMovie}?api_key=${API_KEY}&language=es-ES`,
     getVideoMovie:(idMovie)=>`${API_TMDB_BASE}${idMovie}/videos?api_key=${API_KEY}&language=es-ES`,
+    getGenresMovies:`${API_TMDB_GENRE}?api_key=${API_KEY}&language=es-ES`,
     getAllCinemas:`${URL_BASE_BACK}cinemas`,
-    getGenresMovies:`${API_TMDB_GENRE}?api_key=${API_KEY}&language=es-ES`
+    getFuntion:(idFuntion)=>`${URL_BASE_BACK}funtion/${idFuntion}`,
+    getTypeRoom: (idTypeRoom)=>`${URL_BASE_BACK}typeRooms/${idTypeRoom}`
 }
 export default endpoint;
