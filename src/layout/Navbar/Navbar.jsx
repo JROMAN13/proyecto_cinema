@@ -5,6 +5,7 @@ import SelectCinema from './SelectCinema';
 import SelectDate from './SelectDate';
 
 const Navbar = () => {
+  //useeffect mostrar los filtros if path=home
   return (
     <>
     <nav className="bg-black border-gray-200 dark:bg-gray-900">

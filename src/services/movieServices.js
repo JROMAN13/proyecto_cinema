@@ -24,6 +24,16 @@ export const getMovie=async(idMovie)=>{
         return null
     }
 }
+export const getMovieDuration=async(idMovie)=>{
+    try {
+        const {data}=await axios.get(endpoint.getMovie(idMovie));
+        return data.runtime
+        
+    } catch (error) {
+        console.error(error);
+        return null
+    }
+}
 
 export const getTrailerMovie=async(idMovie)=>{
     try {

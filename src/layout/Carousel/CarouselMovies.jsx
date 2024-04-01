@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getAllMovies, getMovie, getMoviesGenres } from '../../services/movieServices';
+import { getAllMovies, getMovie, getMovieDuration, getMoviesGenres } from '../../services/movieServices';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -32,10 +32,10 @@ const CarouselMovies = () => {
 
     const [movies, setMovies] = useState([]);
     const [showAdditionalSection, setShowAdditionalSection] = useState(false);
-    const [selectedImageIndex, setSelectedImageIndex] = useState(2);
-    
+    const [selectedImage, setSelectedImage] = useState(2);
+    const [runtime,setRuntime]=useState("")
+    const [genres,setGenres]=useState("");
 
-    const [genres,setGenres]=useState("")
     useEffect(() => {
         getAllMovies().then(
             (response) => {
@@ -45,9 +45,19 @@ const CarouselMovies = () => {
         ).catch(
             (error) => console.error(error)
         )
+        
     }, []);
-    
 
+    useEffect(() => {
+        if (movies.length) {
+            agregarDuracionPelicula(movies).then((response) => {
+              console.log(response);
+              setMovies(response);
+            });
+        }
+    },[movies])
+
+    
     useEffect(()=>{
         getMoviesGenres().then(
             (response)=>{
@@ -57,13 +67,26 @@ const CarouselMovies = () => {
         ).catch((e)=>console.error(e))
     },[]);
 
+    const agregarDuracionPelicula = async (listaPelicula) => {
+        try {
+            for (const pelicula of listaPelicula) {
+                const duracion = await getMovieDuration(pelicula.id)
+                pelicula.runtime = duracion;
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            return listaPelicula;
+        }
+    }
+
     // const getMovieDetails = async( idMovie) =>{
     //     try {
-    //         const data=  await getMovie(idMovie)
-    //         return data.runtime
+    //         const data =  await getMovie(idMovie)
+    //         setRuntime(data.runTime)
     //     } catch (error) {
     //         console.error(error)
-    //         return ""
+    //         return null
     //     }
     // }
 
@@ -89,7 +112,7 @@ const CarouselMovies = () => {
         prevArrow: <SamplePrevArrow />
     };
     function handleClick(index) {
-        setSelectedImageIndex(index);
+        setSelectedImage(index);
         setShowAdditionalSection(true);
     }
     
@@ -101,7 +124,7 @@ const CarouselMovies = () => {
                 <Slider {...settings}>
                      {movies.map((movie, index) => {
                         return (
-                            <div key={index} className={`image-container ${selectedImageIndex === index ? 'selected' : ''} rounded-lg`}   onClick={() => handleClick(index)}>
+                            <div key={index} className={`image-container ${selectedImage === index ? 'selected' : ''} rounded-lg`}   onClick={() => handleClick(index,movie.id)}>
                                 <img src={`${urlBaseImage}${movie.poster_path}`} alt={`Movie ${index}`} className='image rounded-lg ' /> 
                                 <div className='w-[inherit] bg-[#050505a0] absolute  flex flex-col justify-center items-center md:top-2/4 sm:top-0 rounded-lg bg-[#05050552] '>
                                     <h2 className='mt-1 mx-7 textPrimary text-center md:text-2xl sm:text-base sm:mx-2 font-bold text-white '>{movie.title}</h2>
@@ -111,11 +134,11 @@ const CarouselMovies = () => {
                                         findNameGenres(movie.genre_ids,genres)
                                     
                                     }</h3>
-                                {selectedImageIndex === index && (
+                                {selectedImage === index && (
                                         <div className='mb-2 w-full flex-wrap flex flex-row justify-center gap-2'>
                                             <p className='textSecundary px-2 py-1 bg-white md:text-xs sm:text-xs '>{movie.adult==false ? "Para todo publico" : 'Mayores de 18'}</p>
-                                            <p className='textSecundary px-2 py-1 bg-white md:text-xs sm:text-xs'>115 min</p>
-                                            {/* <p className='p-2 mx-2 bg-white text-sm '>{getMovieDetails(movie.id)}</p> */}
+                                            {/* <p className='textSecundary px-2 py-1 bg-white md:text-xs sm:text-xs'>115min</p> */}
+                                            <p className='textSecundary px-2 py-1 bg-white md:text-xs sm:text-xs'>{movie.runtime} min</p>
                                         </div>
                                 )}
                                 </div>
