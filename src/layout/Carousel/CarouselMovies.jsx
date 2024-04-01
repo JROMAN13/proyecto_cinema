@@ -3,7 +3,7 @@ import { getAllMovies, getMovie, getMoviesGenres } from '../../services/movieSer
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import formatDate from '../../services/helpers'
+import {formatDate,urlBaseImage} from '../../services/helpers'
 
 
 function SampleNextArrow(props) {
@@ -33,7 +33,7 @@ const CarouselMovies = () => {
     const [movies, setMovies] = useState([]);
     const [showAdditionalSection, setShowAdditionalSection] = useState(false);
     const [selectedImageIndex, setSelectedImageIndex] = useState(2);
-    const urlBaseImage = "https://image.tmdb.org/t/p/w300_and_h450_bestv2";
+    
 
     const [genres,setGenres]=useState("")
     useEffect(() => {
