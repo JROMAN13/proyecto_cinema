@@ -39,7 +39,7 @@ const CarouselMovies = () => {
     useEffect(() => {
         getAllMovies().then(
             (response) => {
-                console.log(response)
+                // console.log(response)
                 setMovies(response)
             }
         ).catch(
@@ -51,7 +51,7 @@ const CarouselMovies = () => {
     useEffect(() => {
         if (movies.length) {
             agregarDuracionPelicula(movies).then((response) => {
-              console.log(response);
+            //   console.log(response);
               setMovies(response);
             });
         }
@@ -126,7 +126,7 @@ const CarouselMovies = () => {
                         return (
                             <div key={index} className={`image-container ${selectedImage === index ? 'selected' : ''} rounded-lg`}   onClick={() => handleClick(index,movie.id)}>
                                 <img src={`${urlBaseImage}${movie.poster_path}`} alt={`Movie ${index}`} className='image rounded-lg ' /> 
-                                <div className='w-[inherit] h-2/4 bg-[#050505a0] absolute  flex flex-col justify-center items-center md:top-2/4 sm:top-0 rounded-lg bg-[#05050552] '>
+                                <div className='w-[inherit] md:h-2/4 sm:h-full bg-[#050505a0] absolute  flex flex-col justify-center items-center md:top-2/4 sm:top-0 rounded-lg bg-[#05050552] '>
                                     <h2 className='mt-1 mx-7 textPrimary text-center md:text-2xl sm:text-base sm:mx-2 font-bold text-white '>{movie.title}</h2>
                                     <p className='mx-6 px-5 mt-1 md:text-base sm:text-sm sm:px-1 sm:mx-1 text-center textSecundary text-white'>Título en inglés: {movie.original_title}</p>
                                     <h3 className='mx-7 px-5 mt-2 md:text-base sm:text-sm sm:px-1 sm:mx-1 s:mt-1 text-center textSecundary text-white'>Estreno: {new Date(movie.release_date).toLocaleDateString('es-ES', formatDate)}</h3>

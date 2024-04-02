@@ -10,6 +10,7 @@ const endpoint={
     getVideoMovie:(idMovie)=>`${API_TMDB_BASE}${idMovie}/videos?api_key=${API_KEY}&language=es-ES`,
     getGenresMovies:`${API_TMDB_GENRE}?api_key=${API_KEY}&language=es-ES`,
     getAllCinemas:`${URL_BASE_BACK}cinemas`,
+    getCinema:(idCinema)=>`${URL_BASE_BACK}cinemas/${idCinema}`,
     getFuntion:(idFuntion)=>`${URL_BASE_BACK}funtion/${idFuntion}`,
     getTypeRoom: (idTypeRoom)=>`${URL_BASE_BACK}typeRooms/${idTypeRoom}`
 }

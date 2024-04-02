@@ -22,10 +22,23 @@ export const getFuntion=async(idFuntion)=>{
         return []
     }
 }
+
+export const getCinemaRoomType=async(idCinema,idRoom)=>{
+    try {
+        const {data}=await axios.get(endpoint.getCinema(idCinema));
+        const typeRoom= data.rooms.find(
+            (item) => item.idroom === idRoom
+        );
+        return typeRoom
+        
+    } catch (error) {
+        console.error(error);
+        return ""
+    }
+}
 export const getInfoRoom=async(idTypeRoom)=>{
     try {
         const {data}=await axios.get(endpoint.getTypeRoom(idTypeRoom));
-        console.log("data",data)
         return data
         
     } catch (error) {
