@@ -65,16 +65,16 @@ const Asientos = ({ asientos = 50, filas = 8, columnas = 12 }) => {
   }, [asientos, filas, columnas]);
 
   const asientosSalas = [];
-  const asientosColumna=[];
 
   for (let index = 0; index < filas; index++) {
     const asientosFila = [];
-    const charColum = <p className='mr-2'>{String.fromCharCode(65 + index)}</p>;
-    asientosColumna.push(charColum);
+    let charColum = ``
+    // asientosColumna.push(charColum);
 
     for (let position = 0; position < columnas; position++) {
       const codigoAsiento = `${position + 1}`;
       if (index * columnas + position >= asientos) break;
+      charColum=<p className='mr-4'>{String.fromCharCode(65 + index)}</p>;
       asientosFila.push(
         <button key={codigoAsiento} className="relative justify-center mr-2">
           <svg
@@ -90,9 +90,9 @@ const Asientos = ({ asientos = 50, filas = 8, columnas = 12 }) => {
     }
 
     asientosSalas.push(
-      <div className='flex'>
+      <div key={`${index}m`} className='flex'>
         {charColum}
-        <div key={`${index}m`}>
+        <div>
           {asientosFila}
         </div>
       </div>
