@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllMovies } from "../services/movieServices";
 import {formatDate, urlBaseImage} from '../services/helpers'
-import { Link, NavLink } from "react-router-dom";
+import {NavLink } from "react-router-dom";
 
 const CardList = () => {
   const [movies, setMovies] = useState([]);
@@ -20,11 +20,11 @@ const CardList = () => {
         {movies.map((movie, index) => {
           return (
             <div key={index} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <NavLink to="details">
+                <NavLink to="/details">
                     <img src={`${urlBaseImage}${movie.poster_path}`} alt={`Movie ${index}`} className="rounded-t-lg"/>
                 </NavLink>
                 <div className="p-2">
-                    <NavLink to="details">
+                    <NavLink to="/details">
                         <h3 className="textSecundary mb-2 text-base font-semibold tracking-tight text-gray-text dark:text-white">{movie.title}</h3>
                     </NavLink>
                     <p className="mb-3 font-normal text-gray-text dark:text-gray-400">Título en inglés: {movie.original_title}</p>

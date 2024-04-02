@@ -10,7 +10,7 @@ const Seats = ({ idFunction = `b3876ac` }) => {
   useEffect(() => {
     getFuntion(idFunction)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setfuntion(response);
       })
       .catch((e) => console.error(e));
@@ -20,7 +20,7 @@ const Seats = ({ idFunction = `b3876ac` }) => {
     if (Object.entries(funtion).length) {
       getCinemaRoomType(funtion.cinema_id,funtion.idroom)
         .then((response) => {
-            console.log("responseType:",response)
+            // console.log("responseType:",response)
             setTypeRoom(response);
         })
         .catch((e) => console.error(e));
@@ -31,7 +31,7 @@ const Seats = ({ idFunction = `b3876ac` }) => {
     if (Object.entries(typeRoom).length) {
       getInfoRoom(typeRoom.type)
         .then((response) => {
-          console.log("typesal", response);
+          // console.log("typesal", response);
           setRoom(response);
         })
         .catch((e) => console.error(e));
@@ -94,7 +94,7 @@ const Seats = ({ idFunction = `b3876ac` }) => {
             </svg>
             <p className="absolute text-xs">A2</p>
           </button> */}
-          <Asientos/>
+          <Asientos typeRoom={room} cantidadBoletos={5} precio={30}/>
         </section>
       </section>
       <aside className="w-4/12">
