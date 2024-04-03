@@ -20,11 +20,11 @@ const CardList = () => {
         {movies.map((movie, index) => {
           return (
             <div key={index} className="max-w-1/4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <NavLink to="/details">
+                <NavLink to={`/details/:${movie.id}`}>
                     <img src={`${urlBaseImage}${movie.poster_path}`} alt={`Movie ${index}`} className="rounded-t-lg"/>
                 </NavLink>
                 <div className="p-2">
-                    <NavLink to="/details">
+                    <NavLink to={`/details/:${movie.id}`}>
                         <h3 className="textSecundary mb-2 text-base font-semibold tracking-tight text-gray-text dark:text-white">{movie.title}</h3>
                     </NavLink>
                     <p className="mb-3 font-normal text-gray-text dark:text-gray-400">Título en inglés: {movie.original_title}</p>
