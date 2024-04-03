@@ -19,7 +19,7 @@ const CardList = () => {
         <div className="mt-10 flex flex-row flex-wrap ">
         {movies.map((movie, index) => {
           return (
-            <div key={index} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div key={index} className="max-w-1/4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <NavLink to="/details">
                     <img src={`${urlBaseImage}${movie.poster_path}`} alt={`Movie ${index}`} className="rounded-t-lg"/>
                 </NavLink>

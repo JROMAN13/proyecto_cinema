@@ -38,9 +38,9 @@ const Asientos = ({typeRoom,cantidadBoletos=3, precio=23}) => {
     }
 
     asientosSalas.push(
-      <div key={`${index}m`} className='flex'>
+      <div key={`${index}-m`} className='flex'>
         {charColum}
-        <div>
+        <div key={`${index}-n`}>
           {asientosFila}
         </div>
       </div>
