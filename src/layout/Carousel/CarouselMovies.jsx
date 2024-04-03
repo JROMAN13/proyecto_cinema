@@ -80,16 +80,6 @@ const CarouselMovies = () => {
         }
     }
 
-    // const getMovieDetails = async( idMovie) =>{
-    //     try {
-    //         const data =  await getMovie(idMovie)
-    //         setRuntime(data.runTime)
-    //     } catch (error) {
-    //         console.error(error)
-    //         return null
-    //     }
-    // }
-
     const findNameGenres= (idsGenres,data) =>{
         let namesGenres = "";
         for (let id of idsGenres) {

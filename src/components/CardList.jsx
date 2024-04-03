@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { getAllMovies } from "../services/movieServices";
+import { getAllMovies, getMovieDuration, getMoviesGenres } from "../services/movieServices";
 import {formatDate, urlBaseImage} from '../services/helpers'
 import {NavLink } from "react-router-dom";
 
 const CardList = () => {
   const [movies, setMovies] = useState([]);
+  const [genres,setGenres]=useState("");
+
   useEffect(() => {
     getAllMovies()
       .then((response) => {
@@ -13,22 +15,73 @@ const CardList = () => {
       })
       .catch((error) => console.error(error));
   }, []);
+  
+  useEffect(()=>{
+    getMoviesGenres().then(
+        (response)=>{
+            // console.log(response)
+            setGenres(response)
+        }
+    ).catch((e)=>console.error(e))
+  },[]);
+
+  useEffect(() => {
+    if (movies.length) {
+        agregarDuracionPelicula(movies).then((response) => {
+        //   console.log(response);
+          setMovies(response);
+        });
+    }
+  },[movies])
+
+  const agregarDuracionPelicula = async (listaPelicula) => {
+    try {
+        for (const pelicula of listaPelicula) {
+            const duracion = await getMovieDuration(pelicula.id)
+            pelicula.runtime = duracion;
+        }
+    } catch (error) {
+        console.log(error);
+    } finally {
+        return listaPelicula;
+    }
+  }
+
+  const findNameGenres= (idsGenres,data) =>{
+    let namesGenres = "";
+    for (let id of idsGenres) {
+        const genre = data.find(genre => genre.id === id)     ;
+        if (genre) {
+            namesGenres += `${genre.name}, `;
+        }
+    }
+    namesGenres=namesGenres.slice(0,-2);
+    return namesGenres
+  }
   return (
-    <div className="mt-10 mx-5">
+    <div className="mt-10 mx-10">
         <h1 className="mb-5 textPrimary">EN CARTELERA</h1>
-        <div className="mt-10 flex flex-row flex-wrap ">
+        <div className="mt-10 flex flex-row flex-wrap justify-between gap-4 ">
         {movies.map((movie, index) => {
           return (
-            <div key={index} className="max-w-1/4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div key={index} className=" w-1/5 mb-5 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                 <NavLink to={`/details/:${movie.id}`}>
-                    <img src={`${urlBaseImage}${movie.poster_path}`} alt={`Movie ${index}`} className="rounded-t-lg"/>
+                    <img src={`${urlBaseImage}${movie.poster_path}`} alt={`Movie ${index}`} className="w-full  rounded-lg"/>
                 </NavLink>
-                <div className="p-2">
+                <div className="mt-2 text-sm">
                     <NavLink to={`/details/:${movie.id}`}>
-                        <h3 className="textSecundary mb-2 text-base font-semibold tracking-tight text-gray-text dark:text-white">{movie.title}</h3>
+                        <h3 className="textSecundary text-lg font-semibold tracking-tight text-gray-text dark:text-white">{movie.title}</h3>
                     </NavLink>
-                    <p className="mb-3 font-normal text-gray-text dark:text-gray-400">Título en inglés: {movie.original_title}</p>
-                    <h3 className='mx-7 px-5 mt-2 md:text-base sm:text-sm sm:px-1 sm:mx-1 s:mt-1 text-center textSecundary text-white'>Estreno: {new Date(movie.release_date).toLocaleDateString('es-ES', formatDate)}</h3>
+                    <p className="mt-2 font-normal text-gray-text dark:text-gray-400 textPrimary">Título en inglés: {movie.original_title}</p>
+                    <p className="mt-1 font-normal text-gray-text dark:text-gray-400 textPrimary">Estreno: {new Date(movie.release_date).toLocaleDateString('es-ES', formatDate)}</p>
+                    <h3 className= 'mt-1 font-normal text-gray-text dark:text-gray-400 textPrimary '>Género: {
+                      findNameGenres(movie.genre_ids,genres)
+                    }
+                    </h3>
+                    <div className='mt-3 w-full flex-wrap flex flex-row justify-center gap-2'>
+                        <p className='textPrimary px-2 py-1 bg-[#EAEAEAFF] text-neutral-900 md:text-xs sm:text-xs'>{movie.adult==false ? "Para todo publico" : 'Mayores de 18'}</p>
+                        <p className='textPrimary px-2 py-1 bg-[#EAEAEAFF] text-neutral-900 md:text-xs sm:text-xs'>{movie.runtime} min</p>
+                    </div>
                 </div>
             </div>
           );
