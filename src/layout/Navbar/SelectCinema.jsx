@@ -4,7 +4,7 @@ import { getAllCinemas } from '../../services/cinemaServices';
 
 const SelectCinema = () => {
     const [cinemas, setCinemas] = useState([])
-    const [selectedCinema,setSelectedCinema]=useState("")
+    const [selectedCinema,setSelectedCinema]=useState(localStorage.getItem(("selectedCinemaId")??''))
 
     useEffect(()=>{
        getAllCinemas().then((response)=>{
@@ -25,7 +25,7 @@ const SelectCinema = () => {
     <form className="md:order-2">
           <label htmlFor="cinemas" className="block mb-2 text-base font-semibold text-gray-text textSecundary ">Cines cercanos</label>
           <select id="cinemas" className="bg-transparent border border-gray-text text-gray-text textSecundary text-sm rounded-lg focus:ring-blue-button focus:border-blue-button block w-full p-2.5" onChange={handleSelectChange} value={selectedCinema} >
-            <option>Seleccione cine</option>
+            <option value={0}>Seleccione cine</option>
             {
                 cinemas.map((cinema,index)=>
                 // {console.log(cinema.name)}
