@@ -23,13 +23,6 @@ const CardList = () => {
         setMovies(response);
       })
       .catch((error) => console.error(error));
-    }else{
-      getAllMovies()
-      .then((response) => {
-        console.log(response);
-        setMovies(response);
-      })
-      .catch((error) => console.error(error));
     }
   }, [idCinema]);
   
@@ -54,41 +47,22 @@ const CardList = () => {
     return namesGenres
   }
 
-  // useEffect(()=>{
-  //   getMovieDuration(movieId).then(
-  //       (response)=>{
+  useEffect(() => {
+    agregarDuracionPelicula(movies).then((response) => {
+      console.log("duracion",response);
+      setMovieRuntime(response);
+    });
+  },[movies])
 
-  //           setMovieRuntime(response)
-  //       }
-  //   ).catch((e)=>console.error(e))
-  // },[movieId]);
-
-
-  // const changeMovies = (idMovie) => {
-  //   setMovieId(idMovie); 
-  // };
-
-  // useEffect(() => {
-  //   if (movies.length) {
-  //       agregarDuracionPelicula(movies).then((response) => {
-  //         // console.log("duracion",response);
-  //         setMovies(response);
-  //       });
-  //   }
-  // },[movies])
-
-  // const agregarDuracionPelicula = async (listaPelicula) => {
-  //   try {
-  //       for (const pelicula of listaPelicula) {
-  //           const duracion = await getMovieDuration(pelicula.id)
-  //           pelicula.runtime = duracion;
-  //       }
-  //   } catch (error) {
-  //       console.log(error);
-  //   } finally {
-  //       return listaPelicula;
-  //   }
-  // }
+  const agregarDuracionPelicula = async (pelicula) => {
+    try {
+      const duracion = await getMovieDuration(pelicula.id)
+      pelicula.runtime = duracion;
+      return duracion
+    } catch (error) {
+        console.log(error);
+    } 
+  }
 
  
   return (
@@ -97,7 +71,6 @@ const CardList = () => {
         <div className="mt-10 flex flex-row flex-wrap justify-between gap-4">
         {movies.length>0? movies.map((movie, index) => {
           const genresMovie=movie.genre_ids ?? movie.genres;
-          // const runtimeMovie=movie.runtime ?? changeMovies(movie.id);
           return (
             <div key={index} className=" w-1/5 mb-5 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                 <NavLink to={`/details/:${movie.id}`}>
@@ -115,12 +88,12 @@ const CardList = () => {
                     </h3>
                     <div className='mt-3 w-full flex-wrap flex flex-row justify-center gap-2'>
                         <p className='textPrimary px-2 py-1 bg-[#EAEAEAFF] text-neutral-900 md:text-xs sm:text-xs'>{movie.adult==false ? "Para todo publico" : 'Mayores de 18'}</p>
-                        {/* <p className='textPrimary px-2 py-1 bg-[#EAEAEAFF] text-neutral-900 md:text-xs sm:text-xs'>{runtimeMovie ?? movieRuntime} min</p> */}
+                        <p className='textPrimary px-2 py-1 bg-[#EAEAEAFF] text-neutral-900 md:text-xs sm:text-xs'>{movie.runtime} min</p>
                     </div>
                 </div>
             </div>
           );
-         }):<div>Cargando...</div>
+         }):<div>Selecione un cinema para cargar cartelera...</div>
         }
         </div>
       
