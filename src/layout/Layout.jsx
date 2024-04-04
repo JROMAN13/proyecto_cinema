@@ -11,7 +11,7 @@ const Layout = () => {
       <Navbar/>
       <CarouselMovies/>
     </header>
-    <Outlet></Outlet>
+    <Outlet/>
     </>
   )
 }

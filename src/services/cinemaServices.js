@@ -12,9 +12,9 @@ export const getAllCinemas=async()=>{
     }
 }
 
-export const getFuntion=async(idFuntion)=>{
+export const getFuntion=async(idCinema)=>{
     try {
-        const {data}=await axios.get(endpoint.getFuntion(idFuntion));
+        const {data}=await axios.get(endpoint.getFuntion(idCinema));
         return data
         
     } catch (error) {
@@ -56,3 +56,4 @@ export const getInfoRoom=async(idTypeRoom)=>{
         return []
     }
 }
+

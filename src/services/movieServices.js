@@ -24,6 +24,17 @@ export const getMovie=async(idMovie)=>{
         return null
     }
 }
+
+export const getVideoMovie = async(idMovie) =>{
+    try {
+        const {data}=await axios.get(endpoint.getVideoMovie(idMovie));
+        return data
+        
+    } catch (error) {
+        console.error(error);
+        return null
+    }
+}
 export const getMovieDuration=async(idMovie)=>{
     try {
         const {data}=await axios.get(endpoint.getMovie(idMovie));
