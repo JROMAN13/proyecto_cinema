@@ -57,7 +57,6 @@ const CarouselMovies = () => {
         }
     },[movies])
 
-    
     useEffect(()=>{
         getMoviesGenres().then(
             (response)=>{
@@ -72,6 +71,7 @@ const CarouselMovies = () => {
             for (const pelicula of listaPelicula) {
                 const duracion = await getMovieDuration(pelicula.id)
                 pelicula.runtime = duracion;
+                // console.log("pelicula",pelicula)
             }
         } catch (error) {
             console.log(error);
@@ -110,7 +110,7 @@ const CarouselMovies = () => {
     return (
         <>
         <div className='w-full'>
-            <div className='md:mt-20 sm:mt-10'>
+            <div className='md:mt-10 sm:mt-8'>
                 <Slider {...settings}>
                      {movies.map((movie, index) => {
                         return (

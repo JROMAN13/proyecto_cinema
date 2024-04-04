@@ -1,6 +1,8 @@
+import { data } from 'autoprefixer';
 import React, { useEffect } from 'react'
 
 const Asientos = ({typeRoom,cantidadBoletos=3, precio=23}) => {
+  // cantidadBoletos=localStorage.getItem(data)
   useEffect(() => {
     console.log("typeRoom",typeRoom)
     console.log("cantidadBoletos",cantidadBoletos);

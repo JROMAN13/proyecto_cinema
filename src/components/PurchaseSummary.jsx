@@ -1,22 +1,61 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { getMovie} from '../services/movieServices'
+import { getCinema} from '../services/cinemaServices'
+import { urlBaseImage } from '../services/helpers'
 
 const PurchaseSummary = ({funtion,tickets,selectedSeats,showRoom}) => {
+    // const [idMovie,setIdMovie]=useState("");
+    const idMovie=funtion?.movie_id
+    const idCinema=funtion?.cinema_id
+    // const [idCinema,setIdCinema]=useState({});
+    const [movie,setMovie]=useState({});
+    const [cinema,setCinema]=useState({});
+
+    // useEffect(()=>{
+    //     setIdMovie(funtion?.movie_id);
+    //     setIdCinema(funtion?.cinema_id);
+    // },[])
+
+    useEffect(()=>{
+        getMovie(idMovie).then(
+            (response)=>{
+                console.log(idMovie)
+                console.log("movie",response)
+                setMovie(response)
+            }
+        ).catch(
+            (e)=>console.log(e)
+        )
+    },[idMovie]);
+
+    useEffect(()=>{
+        getCinema(idCinema).then(
+            (response)=>{
+                console.log(idCinema)
+                console.log("cinema",response)
+                setCinema(response)
+            }
+        ).catch(
+            (e)=>console.log(e)
+        )
+    },[idCinema]);
+
   return (
     <aside className="w-4/12">
         <div className="max-w-sm p-6 bg-[#F4F4F4FF] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Resumen de compra</h5>
             
             <div className="flex flex-col items-center  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                <img className="object-cover w-1/4  h-1/2 p-1" src="" alt="img"/>
+                <img className="object-cover w-1/4  h-1/2 p-1" src={`${urlBaseImage}${movie?.poster_path}`} alt="img"/>
                 <div>
                     <div className="flex flex-row justify-start leading-normal">
                         <h5 className="mr-1 text-base font-bold text-gray-900 dark:text-white">Pelicula: </h5>
-                        <p className=" font-normal text-gray-700 dark:text-gray-400">movie{}</p>
+                        <p className=" font-normal text-gray-700 dark:text-gray-400">{movie?.title}</p>
                     </div>
                     <div className="flex flex-row justify-start leading-normal">
                         <h5 className="mr-1 text-base font-bold text-gray-900 dark:text-white">Complejo: </h5>
-                        <p className="font-normal text-gray-700 dark:text-gray-400">cinema{}</p>
+                        <p className="font-normal text-gray-700 dark:text-gray-400">{cinema?.name}</p>
                     </div>
                     <div className="flex flex-row justify-start leading-normal">
                         <h5 className="mr-1 text-base font-bold text-gray-900 dark:text-white">Fecha: </h5>
