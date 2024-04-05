@@ -50,20 +50,22 @@ const options = {
   }
 };
 
-const SelectDate = () => {
+const SelectDate = (props) => {
   const [show, setShow] = useState(false);
   const [date,setDate]=useState(new Date());
+
   const handleChange = (selectedDate) => {
       console.log(selectedDate);
       setDate(selectedDate)
+      props.getDateSelected(selectedDate)
   };
   const handleClose = (state) => {
       setShow(state);
   };
 
   return (
-      <div className='md:order-3'>
-        <h3 className='font-semibold text-gray-text textSecundary'>Fecha</h3>
+      <div className='md:order-2 mx-2'>
+        <h3 className='mb-2 font-semibold text-gray-text textSecundary'>Fecha</h3>
         {/* <p>{date.toLocaleString()}</p> */}
         <Datepicker options={options} onChange={handleChange} show={show} setShow={handleClose} />
       </div>

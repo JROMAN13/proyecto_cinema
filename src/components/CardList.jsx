@@ -2,40 +2,38 @@ import React, { useEffect, useState } from "react";
 import { getAllMovies, getMovieDuration, getMoviesGenres } from "../services/movieServices";
 import {formatDate, urlBaseImage} from '../services/helpers'
 import {NavLink } from "react-router-dom";
-import { getMoviesByIdCinema } from "../services/cinemaServices";
-import eventEmitter from "../module/eventEmitter";
+import { getMoviesByIdCinema, getMoviesByIdCinemaAndDate } from "../services/cinemaServices";
+// import eventEmitter from "../module/eventEmitter";
 
 const CardList = () => {
   // const idCinema=localStorage.getItem(("selectedCinemaId")) || 0;
   const [movies, setMovies] = useState([]);
-  const [movieRuntime, setMovieRuntime] = useState();
-  const [movieId, setMovieId] = useState("");
   const [genres,setGenres]=useState("");
 
-  const [idCinema, setIdCinema] = useState(localStorage.getItem(("selectedCinemaId")) ??0);
-  console.log("id con emiter",idCinema)
-  // Suscribirse al evento 'enviarDatos'
-  useEffect(() => {
-    const listener = newData => {
-      setIdCinema(newData);
-    };
-    eventEmitter.on('sendSelectedCinema', listener);
-
-    // Limpiar el listener al desmontar el componente
-    return () => {
-      eventEmitter.off('sendSelectedCinemaa', listener);
-    };
-    
-  }, []);
-
+  // const [idCinema, setIdCinema] = useState(localStorage.getItem(("idSelectedCinema")) ??0);
+  // const [idMovie, setIdMovie] = useState(localStorage.getItem(("idSelectedDate")) ?? '');
+  let idCinema = localStorage.getItem(("idSelectedCinema")) ??0;
+  let date = localStorage.getItem(("idSelectedDate")) ?? '';
+  console.log("id con cinema",idCinema)
+  console.log("date con cine",date)
+  
   useEffect(() => {
     if(idCinema != 0){
-      console.log(idCinema);
-      getMoviesByIdCinema(idCinema)
-      .then((response) => {
-        setMovies(response);
-      })
-      .catch((error) => console.error(error));
+      if(date != ''){
+        getMoviesByIdCinemaAndDate(idCinema,date)
+        .then((response) => {
+          setMovies(response);
+          console.log(response)
+        })
+        .catch((error) => console.error(error));
+      }
+      // else{
+      //   getMoviesByIdCinema(idCinema)
+      //   .then((response) => {
+      //     setMovies(response);
+      //   })
+      //   .catch((error) => console.error(error));
+      // }
     }
   }, [idCinema]);
   
@@ -106,7 +104,7 @@ const CardList = () => {
                 </div>
             </div>
           );
-         }):<div>Selecione un cinema para cargar cartelera...</div>
+         }):<div>No hay peliculas disponibles para su seleccion...</div>
         }
         </div>
       

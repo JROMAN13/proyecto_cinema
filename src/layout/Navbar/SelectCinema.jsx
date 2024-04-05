@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { getAllCinemas } from '../../services/cinemaServices';
 
-const INITIALSELECTION= localStorage.getItem("selectedCinemaId") ?? 0
+const INITIALSELECTION= localStorage.getItem("idSelectedCinema") ?? 0
 
-if (INITIALSELECTION==0) localStorage.removeItem("selectedCinemaId")
+if (INITIALSELECTION==0) localStorage.removeItem("idSelectedCinema")
 
 const SelectCinema = (props) => {
     const [cinemas, setCinemas] = useState([])
@@ -16,15 +16,10 @@ const SelectCinema = (props) => {
         }).catch((error)=> console.error(error));
     },[])
 
-    const updateProps=(selection)=>{
-      localStorage.setItem("selectedCinemaId", selection);
-      props.getCinemaSelected(selection)
-    }
-
     const handleSelectChange = (event) => {
       console.log(event.target.value);
       setSelectedCinema(event.target.value);  
-      updateProps(event.target.value)  
+      props.getCinemaSelected(event.target.value);
     };
 
   return (

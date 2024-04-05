@@ -35,20 +35,31 @@ export const getCinema=async(idCinema)=>{
     }
 }
 
-
 export const getMoviesByIdCinema = async (cinemaId) => {
     try {
-      const {data} = await axios.get(endpoint.getFuntionsbyCinema(cinemaId));
+      const {data} = await axios.get(endpoint.getFuntionsByCinema(cinemaId));
       const movieIds = data.map(func => func.movie_id);
       const movies = await Promise.all(movieIds.map(movieId =>getMovie(movieId)));
-      console.log(movies)
-  
+    //   console.log(movies)  
       return movies;
     } catch (error) {
       console.error('Error al obtener las películas del cine:', error);
       return [];
     }
-  };
+};
+
+export const getMoviesByIdCinemaAndDate = async (cinemaId,date) => {
+    try {
+      const {data} = await axios.get(endpoint.getFuntionsByCinemaAndDate(cinemaId,date));
+    //   console.log("responseService=",data)
+      const movieIds = data.map(func => func.movie_id);
+      const movies = await Promise.all(movieIds.map(movieId =>getMovie(movieId)));
+      return movies;
+    } catch (error) {
+      console.error('Error al obtener las peliculas disponibles', error);
+      return [];
+    }
+};
 
 export const getCinemaRoomType=async(idCinema,idRoom)=>{
     try {
