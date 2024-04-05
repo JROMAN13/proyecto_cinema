@@ -13,7 +13,12 @@ export default {
       'blue-button':'#1C508DFF',
       'gray-text':' #565D6DFF'
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        'epilogue': ['Epilogue', 'sans-serif'],
+        'inter': ['Inter', 'sans-serif'],
+      }
+    }
   },
   plugins: [
     require('flowbite/plugin')
