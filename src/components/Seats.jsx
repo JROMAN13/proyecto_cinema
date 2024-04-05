@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getInfoRoom, getFuntion, getCinemaRoomType } from "../services/cinemaServices";
-import Asientos from "./Carousel";
 import { NavLink } from "react-router-dom";
 import PurchaseSummary from "./PurchaseSummary";
+import SeatsSelection from "./SeatsSelection";
 
 const Seats = ({ idFunction = `b0001ab` }) => {
   const [funtion, setfuntion] = useState({});
@@ -85,7 +85,7 @@ const Seats = ({ idFunction = `b0001ab` }) => {
           </div>
         </section>
         <section className="mt-4 pt-8 border-t-4 border-gray-text">
-          <Asientos idFuntion={funtion.id} typeRoom={room} cantidadBoletos={5} precio={30}/>
+          <SeatsSelection idFuntion={funtion.id} typeRoom={room} cantidadBoletos={5} precio={30}/>
         </section>
       </section>
       <PurchaseSummary funtion={funtion}/>
