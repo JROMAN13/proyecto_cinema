@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
 import 'flowbite';
 import Datepicker from 'tailwind-datepicker-react'
+
 const today = new Date();
 today.setDate(today.getDate() - 1);
 
 const max = new Date();
 max.setMonth(max.getMonth() + 1);
-
+const dateInitial= localStorage.getItem("idSelectedDate") ?? '';
+const parts = dateInitial.split("/"); 
+const format = `20${parts[2]}-${parts[1]}-${parts[0]}`;
+const INITIALDATE=new Date(format);
+INITIALDATE.setDate(INITIALDATE.getDate()+1)
+if (INITIALDATE=='') localStorage.removeItem("idSelectedDate")
 
 const options = {
   autoHide: true,
@@ -23,7 +29,7 @@ const options = {
       text: "",
       disabledText: "bg-white text-white",
       input: "bg-transparent border border-gray-text text-gray-text textSecundary focus:border-blue-button block w-full",
-      inputIcon: "hidden",
+      inputIcon: "",
       selected: "",
   },
   icons: {
@@ -37,7 +43,7 @@ const options = {
     ,
   },
   datepickerClassNames: "top-10",
-  defaultDate: new Date(),
+  defaultDate: INITIALDATE,
   language: "es",
   disabledDates: [],
   weekDays: ["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
@@ -52,7 +58,7 @@ const options = {
 
 const SelectDate = (props) => {
   const [show, setShow] = useState(false);
-  const [date,setDate]=useState(new Date());
+  const [date,setDate]=useState(INITIALDATE);
 
   const handleChange = (selectedDate) => {
       console.log(selectedDate);
@@ -64,10 +70,10 @@ const SelectDate = (props) => {
   };
 
   return (
-      <div className='md:order-2 mx-2'>
+      <div className='md:order-2 mx-2 w-1/3'>
         <h3 className='mb-2 font-semibold text-gray-text textSecundary'>Fecha</h3>
         {/* <p>{date.toLocaleString()}</p> */}
-        <Datepicker options={options} onChange={handleChange} show={show} setShow={handleClose} />
+        <Datepicker options={options} onChange={handleChange} show={show} setShow={handleClose} defaultDate={date}/>
       </div>
   );
 };

@@ -22,7 +22,6 @@ const Navbar = () => {
               <div className="relative w-10 h-10 overflow-hidden bg-blue-button rounded-full">
                   <svg className="absolute w-12 h-12 text-white -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
               </div>
-              {/* <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo"/> */}
             </button>
             <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
               <div className="px-4 py-3">
@@ -45,7 +44,7 @@ const Navbar = () => {
               </svg>
           </button>
         </div>
-        <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+        <div className="items-center  hidden w-2/4 md:flex md:w-auto md:order-1" id="navbar-user">
           <ul className={`flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-black md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-black ${location.pathname === "/" ? 'block':'hidden'} `}>      
             <li>
               <a href="#" className="block py-2 px-4 text-white rounded-full bg-blue-button">Acción</a>
@@ -61,7 +60,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <FilterMoviesAvailable/>
+          <FilterMoviesAvailable/>
       </div>
     </nav>
     </>

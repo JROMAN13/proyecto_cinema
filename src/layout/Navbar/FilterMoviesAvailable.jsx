@@ -6,12 +6,12 @@ import { formatDateBackend } from '../../services/helpers';
 const INITIALCINEMA= localStorage.getItem("idSelectedCinema") ?? 0
 if (INITIALCINEMA==0) localStorage.removeItem("idSelectedCinema")
 
-const INITIALMOVIE= localStorage.getItem("idSelectedMovie") ?? ''
-if (INITIALMOVIE=='') localStorage.removeItem("idSelectedMovie")
+const INITIALDATE= localStorage.getItem("idSelectedDate") ?? ''
+if (INITIALDATE=='') localStorage.removeItem("idSelectedDate")
 
 const FilterMoviesAvailable = () => {
     const [selectedCinema, setSelectedCinema] = useState(INITIALCINEMA);
-    const [selectedDate, setSelectedDate] = useState(INITIALMOVIE);
+    const [selectedDate, setSelectedDate] = useState(INITIALDATE);
 
     const bringCinemaSelected= (data) =>{
         setSelectedCinema(data);

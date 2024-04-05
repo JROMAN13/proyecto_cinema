@@ -27,13 +27,13 @@ const CardList = () => {
         })
         .catch((error) => console.error(error));
       }
-      // else{
-      //   getMoviesByIdCinema(idCinema)
-      //   .then((response) => {
-      //     setMovies(response);
-      //   })
-      //   .catch((error) => console.error(error));
-      // }
+      else{
+        getMoviesByIdCinema(idCinema)
+        .then((response) => {
+          setMovies(response);
+        })
+        .catch((error) => console.error(error));
+      }
     }
   }, [idCinema]);
   
