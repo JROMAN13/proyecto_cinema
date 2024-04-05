@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router'
 import Seats from './components/Seats'
 import Asientos from './components/Carousel'
 import DetailMovie from './components/DetailMovie'
+import PurchaseSummary from './components/PurchaseSummary'
 const AppRoutes = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const AppRoutes = () => {
           <Route path='seats' element={<Seats/>}></Route>
           <Route path='s' element={<Asientos/>}></Route>
           <Route path="details/:idPelicula"  element={<DetailMovie/>}/>
+          
           {/*<Route path="select_ticket" element={<DetailMovie/>}/> */}
         </Route>
         {/* <Route index element={<Card></Card>}></Route> */}

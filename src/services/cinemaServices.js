@@ -11,10 +11,9 @@ export const getAllCinemas=async()=>{
         return []
     }
 }
-
-export const getFuntion=async(idCinema)=>{
+export const getFuntionAll = async()=>{
     try {
-        const {data}=await axios.get(endpoint.getFuntion(idCinema));
+        const {data}= await axios.get(endpoint.getFuntionAll);
         return data
         
     } catch (error) {
@@ -22,6 +21,20 @@ export const getFuntion=async(idCinema)=>{
         return []
     }
 }
+
+
+export const getFuntion=async(idCinema)=>{
+    try {
+        const {data}=await axios.get(endpoint.getFuntion(idCinema));
+        return data;
+        
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}
+
+
 export const getCinema=async(idCinema)=>{
     try {
         const {data}=await axios.get(endpoint.getCinema(idCinema));

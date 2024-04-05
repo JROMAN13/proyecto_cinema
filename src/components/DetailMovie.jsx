@@ -1,14 +1,17 @@
 import React from 'react'
 import { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom'
-import { getAllCinemas, getFuntion } from "../services/cinemaServices";
+import { getAllCinemas, getFuntionAll} from "../services/cinemaServices";
 import {formatDate, urlBaseImage} from '../services/helpers';
 import { getMovie, getTrailerMovie, getVideoMovie, getMovieDuration } from "../services/movieServices";
 
 
 const DetailMovie = () => {
   const {idPelicula} = useParams();
+  const cinema = "C.C Viva Colombia";
   const [movies1, setMovies1] = useState([]);
+  const [funtionMovie, setFuntionMovie] = useState([]);
+
   const buildYouTubeVideoURL = (videoKey) => {
     return `https://www.youtube.com/watch?v=${videoKey}`;
   };
@@ -16,6 +19,9 @@ const DetailMovie = () => {
   console.log(idPeliculaVerdadero);
   const [duration, setDuration] = useState([]);
   const [videoMovie, setVideoMovie] = useState([]);
+
+  
+
 
   function obtenerIDVideoYouTube(url) {
     // Patrones de expresiones regulares para extraer el ID del video de diferentes tipos de URL de YouTube
@@ -60,6 +66,30 @@ const DetailMovie = () => {
     fetchData();
   }, [idPeliculaVerdadero]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const datos = await getFuntionAll();
+        setFuntionMovie(datos);
+      } catch (error) {
+        console.error('Error fetching cinemas data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const funtionMovieInfo1 = funtionMovie.filter((elemento) => elemento.movie_id == idPeliculaVerdadero);
+  let dateFuntion = "";
+  let hourFuntion = "";
+  if (funtionMovieInfo1.length > 0 ) {
+    dateFuntion = funtionMovieInfo1[0].date;
+    hourFuntion = funtionMovieInfo1[0].schedule;
+    console.log(funtionMovieInfo1[0].date);
+  } else {
+    console.error('No se encontraron elementos en funtionMovieInfo1.');
+  }
+
+ 
   let year= String(movies1.release_date).substring(0,4);
   let country2 = "";
   if (movies1.production_countries && movies1.production_countries.length > 0) {
@@ -99,7 +129,7 @@ console.log(movies1)
 
   
   return (
-    <section className="w-full flex">
+    <section className="w-full mt-7 flex">
       <div className='w-1/2 h-full flex-col mx-3'>
         <div className='w-full flex justify-evenly'>
           <img src={`${urlBaseImage}${movies1.poster_path}`} alt={`Movie ${movies1.title}`} className="w-36 h-56 mr-9"/>
@@ -107,9 +137,9 @@ console.log(movies1)
           <h4 className='font-epilogue text-2xl font-bold rgb(23 26 31)'> {movies1.title}</h4>
           <h6 className='font-inter'>{movies1.original_title} ({country2} , {year})</h6>
           <div className='flex flex-row gap-x-12px w-3/4'>
-            <p className='bg-gray-600 text-white w-1/3 text-center'> B </p>
-            <p className='bg-gray-900 text-white w-1/3 text-center'>{movies1.runtime} min</p>
-            <p className='bg-blue-900 text-white w-1/3 text-center'> {genreString}</p>
+            <p className='bg-gray-600 text-white text-center content-center flex gap-6 items-center w-full'> B </p>
+            <p className='bg-gray-900 text-white w-1/3 text-center content-center flex gap-6 items-center w-full'>{movies1.runtime} min</p>
+            <p className='bg-blue-900 text-white w-1/3 text-center content-center flex gap-6 items-center w-full'> {genreString}</p>
             </div>
           
           
@@ -123,12 +153,21 @@ console.log(movies1)
           </div>
       </div>
       <div className='w-1/2 flex-col mx-1'>
-        <h1>
-          Horarios disponibles -
+        <h1 className='font-epilogue text-2xl font-bold'>
+          Horarios disponibles - {dateFuntion}
         </h1>
-        <h6>Elige el horario que prefieras.</h6>
-        <h6>mu</h6>
-        <button>Seleccione los asientos</button>
+        <br></br>
+        <h6 className='font-roboto text-lg font-normal'>Elige el horario que prefieras.</h6>
+        
+        <h6 className='font-inter text-lg font-bold'>{cinema}</h6>
+        <br></br>
+        <button className='w-14 font-roboto text-lg font-normal border border-black rounded-md hover:border-dotted flex items-center justify-center'>
+          {hourFuntion}
+        </button>
+        <br></br>
+        
+        <button className='w-60 my-3 text-lg font-normal rounded-full bg-gray-300 hover:bg-gray-400 shadow-md'>Seleccione los asientos</button>
+        
       </div>
    
       

@@ -11,7 +11,8 @@ const endpoint={
     getGenresMovies:`${API_TMDB_GENRE}?api_key=${API_KEY}&language=es-ES`,
     getAllCinemas:`${URL_BASE_BACK}cinemas`,
     getCinema:(idCinema)=>`${URL_BASE_BACK}cinemas/${idCinema}`,
-    getFuntion:(idFuntion)=>`${URL_BASE_BACK}funtion/${idFuntion}`,
+    getFuntionAll:`${URL_BASE_BACK}funtion`,
+    getFuntion:`${URL_BASE_BACK}funtion`,
     getTypeRoom: (idTypeRoom)=>`${URL_BASE_BACK}typeRooms/${idTypeRoom}`
 }
 export default endpoint;
