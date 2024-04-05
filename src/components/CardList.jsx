@@ -5,37 +5,49 @@ import {NavLink } from "react-router-dom";
 import { getMoviesByIdCinema, getMoviesByIdCinemaAndDate } from "../services/cinemaServices";
 // import eventEmitter from "../module/eventEmitter";
 
-const CardList = () => {
+const CardList = (dataSelected={}) => {
+  const selected=dataSelected.dataSelected
+  console.log(selected)
+  // console.log("data",datos)
+  // console.log(dataSelected.dataSelected.cinema)
+  // console.log(dataSelected.dataSelected.date)
+
+
   // const idCinema=localStorage.getItem(("selectedCinemaId")) || 0;
   const [movies, setMovies] = useState([]);
   const [genres,setGenres]=useState("");
 
   // const [idCinema, setIdCinema] = useState(localStorage.getItem(("idSelectedCinema")) ??0);
   // const [idMovie, setIdMovie] = useState(localStorage.getItem(("idSelectedDate")) ?? '');
-  let idCinema = localStorage.getItem(("idSelectedCinema")) ??0;
-  let date = localStorage.getItem(("idSelectedDate")) ?? '';
-  console.log("id con cinema",idCinema)
-  console.log("date con cine",date)
+
+  // const idCinema = localStorage.getItem("idSelectedCinema")||0;
+  // const date = localStorage.getItem("idSelectedDate")?? '';
+  // console.log("id con cinema",idCinema)
+  // console.log("date con cine",date)
   
   useEffect(() => {
+    const idCinema = selected.cinema
+    const date = selected.date
     if(idCinema != 0){
-      if(date != ''){
-        getMoviesByIdCinemaAndDate(idCinema,date)
-        .then((response) => {
-          setMovies(response);
-          console.log(response)
-        })
-        .catch((error) => console.error(error));
-      }
-      else{
+      console.log(idCinema)
+      // if(date){
+      //   console.log(date)
+      //   getMoviesByIdCinemaAndDate(idCinema,date)
+      //   .then((response) => {
+      //     setMovies(response);
+      //     console.log(response)
+      //   })
+      //   .catch((error) => console.error(error));
+      // }
+      // else{
         getMoviesByIdCinema(idCinema)
         .then((response) => {
           setMovies(response);
         })
         .catch((error) => console.error(error));
-      }
+      // }
     }
-  }, [idCinema]);
+  }, [dataSelected]);
   
   useEffect(()=>{
     getMoviesGenres().then(

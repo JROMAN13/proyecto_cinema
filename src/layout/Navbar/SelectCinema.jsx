@@ -3,8 +3,6 @@ import { getAllCinemas } from '../../services/cinemaServices';
 
 const INITIALSELECTION= localStorage.getItem("idSelectedCinema") ?? 0
 
-if (INITIALSELECTION==0) localStorage.removeItem("idSelectedCinema")
-
 const SelectCinema = (props) => {
     const [cinemas, setCinemas] = useState([])
     const [selectedCinema,setSelectedCinema]=useState(INITIALSELECTION)
@@ -17,7 +15,7 @@ const SelectCinema = (props) => {
     },[])
 
     const handleSelectChange = (event) => {
-      console.log(event.target.value);
+      // console.log(event.target.value);
       setSelectedCinema(event.target.value);  
       props.getCinemaSelected(event.target.value);
     };

@@ -1,18 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'flowbite';
 import Datepicker from 'tailwind-datepicker-react'
+import { formatDateBackend } from '../../services/helpers';
 
 const today = new Date();
 today.setDate(today.getDate() - 1);
 
 const max = new Date();
 max.setMonth(max.getMonth() + 1);
-const dateInitial= localStorage.getItem("idSelectedDate") ?? '';
-const parts = dateInitial.split("/"); 
-const format = `20${parts[2]}-${parts[1]}-${parts[0]}`;
-const INITIALDATE=new Date(format);
-INITIALDATE.setDate(INITIALDATE.getDate()+1)
-if (INITIALDATE=='') localStorage.removeItem("idSelectedDate")
+const dateInitial= localStorage.getItem("idSelectedDate");
+
+let INITIALDATE=new Date();
+
+if (dateInitial){
+  const parts = dateInitial.split("/"); 
+  const format = new Date(`20${parts[2]}-${parts[1]}-${parts[0]}`);
+  INITIALDATE=format
+  INITIALDATE.setDate(today.getDate() +1)
+}
+else{
+  INITIALDATE=today;
+  localStorage.setItem("idSelectedDate",(INITIALDATE).toLocaleDateString("es-ES",formatDateBackend))
+}
 
 const options = {
   autoHide: true,
@@ -58,7 +67,13 @@ const options = {
 
 const SelectDate = (props) => {
   const [show, setShow] = useState(false);
+  // console.log(INITIALDATE)
   const [date,setDate]=useState(INITIALDATE);
+
+  useEffect(() => {
+    // console.log("date2",date)
+    localStorage.setItem("idSelectedDate",date.toLocaleDateString("es-ES",formatDateBackend));
+  }, [date]);
 
   const handleChange = (selectedDate) => {
       console.log(selectedDate);
