@@ -18,15 +18,17 @@ const PurchaseSummary = ({funtion,tickets,selectedSeats,showRoom}) => {
     // },[])
 
     useEffect(()=>{
-        getMovie(idMovie).then(
-            (response)=>{
-                console.log(idMovie)
-                console.log("movie",response)
-                setMovie(response)
-            }
-        ).catch(
-            (e)=>console.log(e)
-        )
+        if(idMovie){
+            getMovie(idMovie).then(
+                (response)=>{
+                    console.log(idMovie)
+                    console.log("movie",response)
+                    setMovie(response)
+                }
+            ).catch(
+                (e)=>console.log(e)
+            )
+        }
     },[idMovie]);
 
     useEffect(()=>{

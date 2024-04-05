@@ -14,6 +14,7 @@ const endpoint={
     getFuntionsByCinema:(idCinema)=>`${URL_BASE_BACK}funtion/?cinema_id=${idCinema}`,
     getFuntionsByCinemaAndDate:(idCinema,date)=>`${URL_BASE_BACK}funtion/?cinema_id=${idCinema}&date=${date}`,
     getFuntion:(idFuntion)=>`${URL_BASE_BACK}funtion/${idFuntion}`,
+    getPurchaseByFuntion:(idFuntion)=>`${URL_BASE_BACK}purchased_tickets/?idFuntion=${idFuntion}`,
     getTypeRoom: (idTypeRoom)=>`${URL_BASE_BACK}typeRooms/${idTypeRoom}`
 }
 export default endpoint;

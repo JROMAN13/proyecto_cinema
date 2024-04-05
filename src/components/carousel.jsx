@@ -1,13 +1,28 @@
 import { data } from 'autoprefixer';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { getSeatsPayByFuntion } from '../services/cinemaServices';
 
-const Asientos = ({typeRoom,cantidadBoletos=3, precio=23}) => {
+const Asientos = ({idFuntion,typeRoom,cantidadBoletos=3, precio=23}) => {
   // cantidadBoletos=localStorage.getItem(data)
+  const [occupiedSeats,setOccupiedSeats]=useState([])
   useEffect(() => {
     console.log("typeRoom",typeRoom)
     console.log("cantidadBoletos",cantidadBoletos);
     console.log("precio",precio);
   }, [typeRoom,cantidadBoletos,precio]);
+
+  useEffect(() => {
+    if(idFuntion){
+      getSeatsPayByFuntion(idFuntion).then(
+        (response) =>{
+          console.log(response);
+          setOccupiedSeats(response);
+        }
+      ).catch(
+        (e)=>console.error(e)
+      )
+    }
+  }, [idFuntion]);  
   
   const asientos=typeRoom.seats
   const filas=typeRoom.row
@@ -20,6 +35,7 @@ const Asientos = ({typeRoom,cantidadBoletos=3, precio=23}) => {
     let charColum = ``
     for (let position = 0; position < columnas; position++) {
       const codigoAsiento = `${position + 1}`;
+      console.log(codigoAsiento)
       if (index * columnas + position >= asientos) break;
       if(position==7){
        asientosFila.push(<button className='w-8 mr-2'></button>)
@@ -28,7 +44,7 @@ const Asientos = ({typeRoom,cantidadBoletos=3, precio=23}) => {
       asientosFila.push(
         <button key={codigoAsiento} className="relative justify-center mr-2">
           <svg
-            className="w-8  fill-blue-700"
+            className={`w-8 ${occupiedSeats.includes(String.fromCharCode(65 + index)+codigoAsiento) ?'fill-red-700': 'fill-blue-700'}`}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 640 512"
           >
@@ -42,14 +58,19 @@ const Asientos = ({typeRoom,cantidadBoletos=3, precio=23}) => {
     asientosSalas.push(
       <div key={`${index}-m`} className='flex'>
         {charColum}
-        <div key={`${index}-n`}>
+        <div key={`${index}-child`}>
           {asientosFila}
         </div>
       </div>
     );
   }
 
-  return <div>{asientosSalas}</div>;
+  return (
+    <div>
+      <div>{asientosSalas}</div>
+      <div className='w-4/5 py-1 mt-4 mx-auto text-center bg-gray-text rounded-md text-white font-semibold  textSecundary'>Pantalla</div>
+    </div>
+  )
 };
 
 export default Asientos;

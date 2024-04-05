@@ -74,10 +74,31 @@ export const getCinemaRoomType=async(idCinema,idRoom)=>{
         return ""
     }
 }
+
 export const getInfoRoom=async(idTypeRoom)=>{
     try {
         const {data}=await axios.get(endpoint.getTypeRoom(idTypeRoom));
         return data
+        
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}
+
+export const getSeatsPayByFuntion = async(idFuntion)=>{
+    try {
+        const {data}=await axios.get(endpoint.getPurchaseByFuntion(idFuntion));
+        console.log("data",data)
+        const seats=[];
+
+        data.map((item) =>{
+            item.seatsPay.map(
+                seat=>seats.push(seat)
+            )
+        })
+
+        return seats
         
     } catch (error) {
         console.error(error);
