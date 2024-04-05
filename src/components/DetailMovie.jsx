@@ -99,13 +99,13 @@ console.log(movies1)
 
   
   return (
-    <section className="w-full h-full flex-row my-8">
-      <div className='w-1/2 flex-col mx-7'>
-        <div className='flex justify-evenly'>
+    <section className="w-full flex">
+      <div className='w-1/2 h-full flex-col mx-3'>
+        <div className='w-full flex justify-evenly'>
           <img src={`${urlBaseImage}${movies1.poster_path}`} alt={`Movie ${movies1.title}`} className="w-36 h-56 mr-9"/>
-          <div>
-          <h4 className='font-epilogue text-2xl font-bold rgb(23 26 31)'>{movies1.title}</h4>
-          <h6 className='font-inter'>{movies1.original_title}({country2}, {year})</h6>
+          <div className='w-full'>
+          <h4 className='font-epilogue text-2xl font-bold rgb(23 26 31)'> {movies1.title}</h4>
+          <h6 className='font-inter'>{movies1.original_title} ({country2} , {year})</h6>
           <div className='flex flex-row gap-x-12px w-3/4'>
             <p className='bg-gray-600 text-white w-1/3 text-center'> B </p>
             <p className='bg-gray-900 text-white w-1/3 text-center'>{movies1.runtime} min</p>
@@ -115,18 +115,24 @@ console.log(movies1)
           
           </div>
           </div>
-          <div className='flex-col'>
+          <div className='flex-col w-full h-full'>
           <h6 className='font-inter text-base mt-7 mb-3 font-bold'>Trailer</h6>
-          <iframe width="560" height="315" src={linkEmbed} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe width="550" height="315" src={linkEmbed} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           <h6 className='font-bold my-3'>Sipnosis</h6>
-          <p className='text-lg font-normal font-inter text-justify'>{movies1.overview}</p>
+          <p className='w-full text-lg font-normal font-inter text-justify'>{movies1.overview}</p>
           </div>
       </div>
-      <div className='w-1/2 flex-col mx-4'>
+      <div className='w-1/2 flex-col mx-1'>
         <h1>
           Horarios disponibles -
         </h1>
+        <h6>Elige el horario que prefieras.</h6>
+        <h6>mu</h6>
+        <button>Seleccione los asientos</button>
       </div>
+   
+      
+      
     </section>
 
   )
