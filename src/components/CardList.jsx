@@ -3,20 +3,33 @@ import { getAllMovies, getMovieDuration, getMoviesGenres } from "../services/mov
 import {formatDate, urlBaseImage} from '../services/helpers'
 import {NavLink } from "react-router-dom";
 import { getMoviesByIdCinema } from "../services/cinemaServices";
+import eventEmitter from "../module/eventEmitter";
 
 const CardList = () => {
-  const idCinema=localStorage.getItem(("selectedCinemaId")) || '';
+  // const idCinema=localStorage.getItem(("selectedCinemaId")) || 0;
   const [movies, setMovies] = useState([]);
-  const [movieRuntime, setMovieRuntime] = useState("");
+  const [movieRuntime, setMovieRuntime] = useState();
   const [movieId, setMovieId] = useState("");
   const [genres,setGenres]=useState("");
 
-  if(idCinema== 0){
-    localStorage.removeItem("selectedCinemaId")
-  }
-  
+  const [idCinema, setIdCinema] = useState(localStorage.getItem(("selectedCinemaId")) ??0);
+  console.log("id con emiter",idCinema)
+  // Suscribirse al evento 'enviarDatos'
   useEffect(() => {
-    if(idCinema){
+    const listener = newData => {
+      setIdCinema(newData);
+    };
+    eventEmitter.on('sendSelectedCinema', listener);
+
+    // Limpiar el listener al desmontar el componente
+    return () => {
+      eventEmitter.off('sendSelectedCinemaa', listener);
+    };
+    
+  }, []);
+
+  useEffect(() => {
+    if(idCinema != 0){
       console.log(idCinema);
       getMoviesByIdCinema(idCinema)
       .then((response) => {
@@ -47,22 +60,22 @@ const CardList = () => {
     return namesGenres
   }
 
-  useEffect(() => {
-    agregarDuracionPelicula(movies).then((response) => {
-      console.log("duracion",response);
-      setMovieRuntime(response);
-    });
-  },[movies])
+  // useEffect(() => {
+  //   agregarDuracionPelicula(movies).then((response) => {
+  //     console.log("duracion",response);
+  //     setMovieRuntime(response);
+  //   });
+  // },[movies])
 
-  const agregarDuracionPelicula = async (pelicula) => {
-    try {
-      const duracion = await getMovieDuration(pelicula.id)
-      pelicula.runtime = duracion;
-      return duracion
-    } catch (error) {
-        console.log(error);
-    } 
-  }
+  // const agregarDuracionPelicula = async (pelicula) => {
+  //   try {
+  //     const duracion = await getMovieDuration(pelicula.id)
+  //     pelicula.runtime = duracion;
+  //     return duracion
+  //   } catch (error) {
+  //       console.log(error);
+  //   } 
+  // }
 
  
   return (

@@ -1,9 +1,8 @@
 import React from 'react'
 import 'flowbite';
 import icon from '../../assets/Icons.png'
-import SelectCinema from './SelectCinema';
-import SelectDate from './SelectDate';
 import { useLocation } from 'react-router-dom';
+import FilterMoviesAvailable from './FilterMoviesAvailable';
 
 const Navbar = () => {
   const location=useLocation();
@@ -62,9 +61,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <SelectCinema/>
-        <SelectDate/> 
-        <div></div>
+        <FilterMoviesAvailable/>
       </div>
     </nav>
     </>
