@@ -20,7 +20,7 @@ const tickets = [
     }
 ]
 
-const SelectTickets = ({ idFunction = `b3876ac` }) => {
+const SelectTickets = ({ idFunction = `b0001ab` }) => {
 
     const [funtion, setfuntion] = useState({});
     const [quantities, setQuantities] = useState(tickets);

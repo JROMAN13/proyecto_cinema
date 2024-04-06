@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { getMovie } from '../services/movieServices'
 import { getCinema } from '../services/cinemaServices'
@@ -15,23 +14,27 @@ const PurchaseSummary = ({ funtion, tickets, selectedSeats, showRoom, quantities
     const [cinema, setCinema] = useState({});
 
     useEffect(() => {
-        getMovie(idMovie).then(
-            (response) => {
-                setMovie(response)
-            }
-        ).catch(
-            (e) => console.log(e)
-        )
+        if(idMovie){
+            getMovie(idMovie).then(
+                (response) => {
+                    setMovie(response)
+                }
+            ).catch(
+                (e) => console.log(e)
+            )
+        }
     }, [idMovie]);
 
     useEffect(() => {
-        getCinema(idCinema).then(
-            (response) => {
-                setCinema(response)
-            }
-        ).catch(
-            (e) => console.log(e)
-        )
+        if(idCinema){
+            getCinema(idCinema).then(
+                (response) => {
+                    setCinema(response)
+                }
+            ).catch(
+                (e) => console.log(e)
+            )
+        }
     }, [idCinema]);
 
 
