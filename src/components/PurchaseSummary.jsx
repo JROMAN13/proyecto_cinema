@@ -5,8 +5,9 @@ import { getCinema } from '../services/cinemaServices'
 import { urlBaseImage } from '../services/helpers'
 
 
-const PurchaseSummary = ({ funtion, tickets, selectedSeats, showRoom, quantities = [] }) => {
+const PurchaseSummary = ({ funtion, showOptionalSections = false, quantities = [] }) => {
     const totalCompra = quantities.reduce((total, itemActual) => total + Number(itemActual.quanty) * Number(itemActual.price), 0);
+   
     const idMovie = funtion?.movie_id
     const idCinema = funtion?.cinema_id
 
@@ -37,10 +38,31 @@ const PurchaseSummary = ({ funtion, tickets, selectedSeats, showRoom, quantities
         }
     }, [idCinema]);
 
+    const [isFormComplete, setIsFormComplete] = useState(false);
+    const [purchase, setPurchase] = useState({});
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if(movie && cinema && funtion && totalCompra > 0 && quantities.length) {
+            const totalCantidad = quantities.reduce((total, item) => total + item.quanty, 0);
+            setIsFormComplete(true)
+            setPurchase( {
+                cinema_id:cinema.id,
+                date:funtion.date,
+                idFuntion:funtion.id,
+                totalPay:totalCompra,
+                moviePosterPath: movie.poster_path,
+                movieTitle: movie.title,
+                cinemaName: cinema.name,
+                tickets:totalCantidad
+            });
+        }
+    }
+
 
     return (
         <aside className="w-2/5">
-            <div className="max-w-lg p-6 bg-[#F4F4F4FF] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <form onSubmit={handleSubmit} className="max-w-lg p-6 bg-[#F4F4F4FF] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Resumen de compra</h5>
 
                 <div className="flex flex-col items-center  md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
@@ -65,17 +87,17 @@ const PurchaseSummary = ({ funtion, tickets, selectedSeats, showRoom, quantities
                             <h5 className="mr-1 text-base font-bold text-gray-900 dark:text-white">Funcion: </h5>
                             <p className="font-normal text-gray-700 dark:text-gray-400">{funtion.schedule}</p>
                         </div>
-                        <div className={`flex flex-row justify-start leading-normal ${tickets ? 'block' : 'hidden'}`}>
+                        <div className={`flex flex-row justify-start leading-normal ${showOptionalSections ? 'block' : 'hidden'}`}>
                             <h5 className={`mr-1 text-base font-bold text-gray-900 dark:text-white `}>
                                 Boletos:
                                 <span className="font-normal text-gray-700 dark:text-gray-400">tickets{ }</span>
                             </h5>
                         </div>
-                        <div className={`flex flex-row justify-start leading-normal  ${showRoom ? 'block' : 'hidden'}`}>
+                        <div className={`flex flex-row justify-start leading-normal  ${showOptionalSections ? 'block' : 'hidden'}`}>
                             <h5 className="mr-1 text-base font-bold text-gray-900 dark:text-white">Numero de sala: </h5>
                             <p className="font-normal text-gray-700 dark:text-gray-400">{funtion.idroom}</p>
                         </div>
-                        <div className={`flex flex-row justify-start leading-normal  ${selectedSeats ? 'block' : 'hidden'}`}>
+                        <div className={`flex flex-row justify-start leading-normal  ${showOptionalSections ? 'block' : 'hidden'}`}>
                             <h5 className="mr-1 text-base font-bold text-gray-900 dark:text-white">
                                 Asientos:
                                 <span className="font-normal text-gray-700 dark:text-gray-400">{ }</span>
@@ -89,10 +111,14 @@ const PurchaseSummary = ({ funtion, tickets, selectedSeats, showRoom, quantities
                     <h5 className="mr-1 text-base font-bold text-gray-900 dark:text-white">Total(IVA incluido): </h5>
                     <h5 className="mr-1 text-base font-bold text-gray-900 dark:text-white">${totalCompra}</h5>
                 </div>
-                <NavLink to="#" className="w-full inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-button rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <NavLink to='/seats'
+                  className={`w-full inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-button rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${
+                    isFormComplete ? "" : "cursor-not-allowed opacity-50"
+                  }`}
+                >
                     Continuar
                 </NavLink>
-            </div>
+            </form>
         </aside>
     )
 }
