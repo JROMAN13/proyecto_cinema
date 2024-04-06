@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { getSeatsPayByFuntion } from '../services/cinemaServices';
 
-const SeatsSelection = ({idFuntion,typeRoom,cantidadBoletos=3, precio=23}) => {
+const SeatsSelection = ({idFuntion,typeRoom,cantidadBoletos=4, precio=23}) => {
     // cantidadBoletos=localStorage.getItem(data)
     const [occupiedSeats,setOccupiedSeats]=useState([])
+    const [selectedSeats,setSelectedSeats]=useState([])
+    // const selectedSeats=[]
+
     useEffect(() => {
       console.log("typeRoom",typeRoom)
       console.log("cantidadBoletos",cantidadBoletos);
@@ -23,6 +26,18 @@ const SeatsSelection = ({idFuntion,typeRoom,cantidadBoletos=3, precio=23}) => {
       }
     }, [idFuntion]);  
     
+    
+    const handleSeatsSelected = (codSeat) => {
+      if (selectedSeats.length < cantidadBoletos-1){
+        if(!selectedSeats.includes(codSeat)) {
+          setSelectedSeats([...selectedSeats, codSeat]); 
+          console.log(selectedSeats, codSeat);
+        }
+      }else{
+        alert("La cantidad de sillas debe ser igual a la cantidad de boletos")
+      }
+    };
+
     const asientos=typeRoom.seats
     const filas=typeRoom.row
     const columnas=typeRoom.col
@@ -34,16 +49,29 @@ const SeatsSelection = ({idFuntion,typeRoom,cantidadBoletos=3, precio=23}) => {
       let charColum = ``
       for (let position = 0; position < columnas; position++) {
         const codigoAsiento = `${position + 1}`;
-        console.log(codigoAsiento)
+        // console.log(codigoAsiento)
         if (index * columnas + position >= asientos) break;
         if(position==7){
          asientosFila.push(<button className='w-8 mr-2'></button>)
         }
         charColum=<p className='w-8'>{String.fromCharCode(65 + index)}</p>;
+        const codComplete=String.fromCharCode(65 + index) + codigoAsiento
         asientosFila.push(
-          <button key={codigoAsiento} className="relative justify-center mr-2">
+          <button
+           key={codigoAsiento}
+           onClick={() =>handleSeatsSelected(codComplete)} 
+           disabled={occupiedSeats.includes(codComplete) || selectedSeats.includes(codComplete)}
+           className="relative justify-center mr-2"
+           >
             <svg
-              className={`w-8 ${occupiedSeats.includes(String.fromCharCode(65 + index)+codigoAsiento) ?'fill-red-700': 'fill-blue-700'}`}
+              className={`w-8 ${
+                occupiedSeats.includes(codComplete)
+                  ? 'fill-red-700'
+                  : selectedSeats.includes(codComplete)
+                  ? 'fill-yellow-500'
+                  : 'fill-blue-700'
+              }`
+            }
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 640 512"
             >
