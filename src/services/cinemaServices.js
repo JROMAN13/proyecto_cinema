@@ -35,7 +35,7 @@ export const getFuntion=async(idCinema)=>{
 }
 
 
-export const getCinema=async(idCinema)=>{
+export const getCinema= async(idCinema)=>{
     try {
         const {data}=await axios.get(endpoint.getCinema(idCinema));
         return data

@@ -1,16 +1,19 @@
 import React from 'react'
-import { useEffect, useState } from "react";
-import { Link, useParams } from 'react-router-dom'
-import { getAllCinemas, getFuntionAll} from "../services/cinemaServices";
+import { useEffect, useState} from "react";
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import { getAllCinemas, getCinema, getFuntionAll} from "../services/cinemaServices";
 import {formatDate, urlBaseImage} from '../services/helpers';
 import { getMovie, getTrailerMovie, getVideoMovie, getMovieDuration } from "../services/movieServices";
 
 
+
+
 const DetailMovie = () => {
   const {idPelicula} = useParams();
-  const cinema = "C.C Viva Colombia";
+  
   const [movies1, setMovies1] = useState([]);
   const [funtionMovie, setFuntionMovie] = useState([]);
+  const navigate = useNavigate();
 
   const buildYouTubeVideoURL = (videoKey) => {
     return `https://www.youtube.com/watch?v=${videoKey}`;
@@ -19,6 +22,18 @@ const DetailMovie = () => {
   console.log(idPeliculaVerdadero);
   const [duration, setDuration] = useState([]);
   const [videoMovie, setVideoMovie] = useState([]);
+  const [idCinema, setIdCinema] = useState(() => {
+    const saved = localStorage.getItem("idSelectedCinema");
+    const initialValue = saved ? JSON.parse(saved) : "345sdfcg";
+    return initialValue;
+  });
+
+  const [hourSelected, setHourSelected] = useState(false);
+
+
+  const handleHourSelection = () => {
+    setHourSelected(true);
+  };
 
   
 
@@ -40,12 +55,8 @@ const DetailMovie = () => {
 
     // Si no se encontró ningún ID de video
     return null;
-}
-
+  }
   
-  
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -54,8 +65,11 @@ const DetailMovie = () => {
           console.log('ID de la película:', idPeliculaVerdadero);
           const data = await getMovie(idPeliculaVerdadero);
           const data2 = await getVideoMovie(idPeliculaVerdadero);
+          const data3 = await getCinema(idCinema);
           setMovies1(data);
           setVideoMovie(data2);
+          setIdCinema(data3);
+
         } else {
           console.log('El ID de la película no está definido.');
         }
@@ -88,6 +102,8 @@ const DetailMovie = () => {
   } else {
     console.error('No se encontraron elementos en funtionMovieInfo1.');
   }
+
+  console.log(idCinema);
 
  
   let year= String(movies1.release_date).substring(0,4);
@@ -124,7 +140,6 @@ const DetailMovie = () => {
 
   
 console.log(movies1)
-  
 
 
   
@@ -132,14 +147,14 @@ console.log(movies1)
     <section className="w-full mt-7 flex">
       <div className='w-1/2 h-full flex-col mx-3'>
         <div className='w-full flex justify-evenly'>
-          <img src={`${urlBaseImage}${movies1.poster_path}`} alt={`Movie ${movies1.title}`} className="w-36 h-56 mr-9"/>
+          <img src={`${urlBaseImage}${movies1.poster_path}`} alt={`Movie ${movies1.title}`} className="w-30 h-56 mr-9 content-center"/>
           <div className='w-full'>
           <h4 className='font-epilogue text-2xl font-bold rgb(23 26 31)'> {movies1.title}</h4>
           <h6 className='font-inter'>{movies1.original_title} ({country2} , {year})</h6>
-          <div className='flex flex-row gap-x-12px w-3/4'>
-            <p className='bg-gray-600 text-white text-center content-center flex gap-6 items-center w-full'> B </p>
-            <p className='bg-gray-900 text-white w-1/3 text-center content-center flex gap-6 items-center w-full'>{movies1.runtime} min</p>
-            <p className='bg-blue-900 text-white w-1/3 text-center content-center flex gap-6 items-center w-full'> {genreString}</p>
+          <div className='flex flex-row  w-3/20 mt-4 items-center'>
+            <p className='bg-gray-600 text-white text-center content-center flex justify-center gap-6 items-center w-full  rounded-md mr-3'> B </p>
+            <p className='bg-gray-900 text-white w-1/3 text-center content-center flex  justify-center gap-6 items-center w-full rounded-md mr-3'>{movies1.runtime} min</p>
+            <p className='bg-blue-900 text-white w-1/3 text-center content-center flex justify-center gap-6 items-center w-full  rounded-md mr-3 text-sm'> {genreString}</p>
             </div>
           
           
@@ -152,28 +167,31 @@ console.log(movies1)
           <p className='w-full text-lg font-normal font-inter text-justify'>{movies1.overview}</p>
           </div>
       </div>
-      <div className='w-1/2 flex-col mx-1'>
+      <div className='w-1/2 flex-col mx-2 self-start'>
         <h1 className='font-epilogue text-2xl font-bold'>
           Horarios disponibles - {dateFuntion}
         </h1>
         <br></br>
         <h6 className='font-roboto text-lg font-normal'>Elige el horario que prefieras.</h6>
         
-        <h6 className='font-inter text-lg font-bold'>{cinema}</h6>
+        <h6 className='font-inter text-lg font-bold capitalize'>{idCinema.name}</h6>
         <br></br>
-        <button className='w-14 font-roboto text-lg font-normal border border-black rounded-md hover:border-dotted flex items-center justify-center'>
+        <button onClick={handleHourSelection} className={`w-14 font-roboto text-lg font-normal border border-black rounded-md ${hourSelected ? 'bg-gray-300 active:bg-gray-400' : ''} flex items-center justify-center`} >
           {hourFuntion}
         </button>
         <br></br>
         
-        <button className='w-60 my-3 text-lg font-normal rounded-full bg-gray-300 hover:bg-gray-400 shadow-md'>Seleccione los asientos</button>
+        <button onClick={() => navigate('select_tickets') } className={`w-80 my-3 text-lg font-normal rounded-full ${hourSelected ? 'bg-gray-300 hover:bg-gray-400' : 'bg-gray-200 cursor-not-allowed'} shadow-md`} disabled={!hourSelected}>
+            Seleccione los asientos
+          </button>
+        
         
       </div>
    
       
       
     </section>
-
+    
   )
 };
 
