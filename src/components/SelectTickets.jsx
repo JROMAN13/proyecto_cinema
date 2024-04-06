@@ -123,7 +123,7 @@ const SelectTickets = ({ idFunction}) => {
 
             </form>
 
-            <PurchaseSummary funtion={funtion} quantities={quantities} />
+            <PurchaseSummary funtion={funtion} quantities={quantities} path='/seats' />
         </div>
     )
 }

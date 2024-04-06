@@ -88,7 +88,7 @@ const Seats = ({ idFunction = `b0001ab` }) => {
           <SeatsSelection idFuntion={funtion.id} typeRoom={room} cantidadBoletos={5} precio={30}/>
         </section>
       </section>
-      <PurchaseSummary funtion={funtion}/>
+      <PurchaseSummary funtion={funtion} path='/payment'/>
     </section>
   );
 };

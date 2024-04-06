@@ -1,15 +1,26 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcVisa, faCcMastercard, faCcAmex } from '@fortawesome/free-brands-svg-icons';
+import PurchaseSummary from "../../components/PurchaseSummary";
 
 
-const PaymentMethod = () => {
+const PaymentMethod = ({idFuntion}) => {
   const [email, setEmail] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [cardHolder, setCardHolder] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [errors, setErrors] = useState({});
+  const [funtion, setfuntion] = useState({});
+
+  useEffect(() => {
+    getFuntion(idFunction)
+      .then((response) => {
+        console.log(response,"fun");
+        setfuntion(response);
+      })
+      .catch((e) => console.error(e));
+  }, [idFunction]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -112,11 +123,11 @@ const PaymentMethod = () => {
               placeholder="1234 1234 1234 1234 "
               className="form-input mt-1 block w-full rounded-lg  bg-gray-100 border-none"
             />
-            <div className="-mt-8 ">
+            {/* <div className="-mt-8 ">
               <FontAwesomeIcon icon={faCcVisa} className="text-2xl mr-2" />
               <FontAwesomeIcon icon={faCcMastercard} className="text-2xl mr-2" />
               <FontAwesomeIcon icon={faCcAmex} className="text-2xl" />
-            </div>
+            </div> */}
             {errors.cardNumber && (
               <span className="text-red-500">{errors.cardNumber}</span>
             )}
@@ -161,7 +172,7 @@ const PaymentMethod = () => {
           </button>
         </form>
       </div>
-      );
+      <PurchaseSummary funtion={funtion} path='/payment'></PurchaseSummary>
     </>
   );
 };

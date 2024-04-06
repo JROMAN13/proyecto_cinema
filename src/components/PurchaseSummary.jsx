@@ -5,7 +5,7 @@ import { getCinema } from '../services/cinemaServices'
 import { urlBaseImage } from '../services/helpers'
 
 
-const PurchaseSummary = ({ funtion, showOptionalSections = false, quantities = [] }) => {
+const PurchaseSummary = ({ funtion, showOptionalSections = false, quantities = [],path}) => {
     const totalCompra = quantities.reduce((total, itemActual) => total + Number(itemActual.quanty) * Number(itemActual.price), 0);
    
     const idMovie = funtion?.movie_id
@@ -111,7 +111,7 @@ const PurchaseSummary = ({ funtion, showOptionalSections = false, quantities = [
                     <h5 className="mr-1 text-base font-bold text-gray-900 dark:text-white">Total(IVA incluido): </h5>
                     <h5 className="mr-1 text-base font-bold text-gray-900 dark:text-white">${totalCompra}</h5>
                 </div>
-                <NavLink to='/seats'
+                <NavLink to={path}
                   className={`w-full inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-button rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${
                     isFormComplete ? "" : "cursor-not-allowed opacity-50"
                   }`}

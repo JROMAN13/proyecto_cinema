@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router'
 import Seats from './components/Seats'
 import SelectTickets from './components/SelectTickets'
 import DetailMovie from './components/DetailMovie'
-import PurchaseSummary from './components/PurchaseSummary'
+import PaymentMethod from './pages/payment/PaymentMethod'
 const INITIALCINEMA = localStorage.getItem("idSelectedCinema") ?? null;
 const INITIALDATE = localStorage.getItem("idSelectedDate");
 
@@ -28,6 +28,7 @@ const AppRoutes = () => {
           <Route path="details/:idPelicula" element={<DetailMovie cinema={dataRecibida.cinema} onFuntionMovieInfo={handleIdFuntion} />}/>
           <Route path='seats' element={<Seats idFunction={funtionSelected.id}/>}></Route>
           <Route path='selectTickets' element={<SelectTickets idFunction={funtionSelected.id}/>}></Route>
+          <Route path="/payment" element={<PaymentMethod idFunction={funtionSelected.id}></PaymentMethod>}></Route>
         </Route>
       </Routes>
     </>
