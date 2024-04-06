@@ -11,6 +11,7 @@ const endpoint={
     getGenresMovies:`${API_TMDB_GENRE}?api_key=${API_KEY}&language=es-ES`,
     getAllCinemas:`${URL_BASE_BACK}cinemas`,
     getCinema:(idCinema)=>`${URL_BASE_BACK}cinemas/${idCinema}`,
+    getFuntionAll:`${URL_BASE_BACK}funtion`,
     getFuntionsByCinema:(idCinema)=>`${URL_BASE_BACK}funtion/?cinema_id=${idCinema}`,
     getFuntionsByCinemaAndDate:(idCinema,date)=>`${URL_BASE_BACK}funtion/?cinema_id=${idCinema}&date=${date}`,
     getFuntion:(idFuntion)=>`${URL_BASE_BACK}funtion/${idFuntion}`,

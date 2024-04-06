@@ -20,10 +20,12 @@ const tickets = [
     }
 ]
 
-const SelectTickets = ({ idFunction = `b0001ab` }) => {
-
+const SelectTickets = ({ idFunction}) => {
+    console.log("idFunction",idFunction)
     const [funtion, setfuntion] = useState({});
     const [quantities, setQuantities] = useState(tickets);
+
+
 
     const handleDecrement = (index) => {
         if (quantities[index].quanty > 0) {

@@ -12,9 +12,10 @@ export const getAllCinemas=async()=>{
         return []
     }
 }
-export const getFuntionAll = async()=>{
+
+export const getFuntion=async(idFuntion)=>{
     try {
-        const {data}= await axios.get(endpoint.getFuntionAll);
+        const {data}=await axios.get(endpoint.getFuntion(idFuntion));
         return data
         
     } catch (error) {
@@ -77,6 +78,17 @@ export const getCinemaRoomType=async(idCinema,idRoom)=>{
 export const getInfoRoom=async(idTypeRoom)=>{
     try {
         const {data}=await axios.get(endpoint.getTypeRoom(idTypeRoom));
+        return data
+        
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}
+
+export const getFuntionAll = async()=>{
+    try {
+        const {data}= await axios.get(endpoint.getFuntionAll);
         return data
         
     } catch (error) {

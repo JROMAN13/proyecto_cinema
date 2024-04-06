@@ -6,9 +6,7 @@ import {formatDate, urlBaseImage} from '../services/helpers';
 import { getMovie, getTrailerMovie, getVideoMovie, getMovieDuration } from "../services/movieServices";
 
 
-
-
-const DetailMovie = () => {
+const DetailMovie = ({cinema,onFuntionMovieInfo}) => {
   const {idPelicula} = useParams();
   
   const [movies1, setMovies1] = useState([]);
@@ -22,11 +20,12 @@ const DetailMovie = () => {
   console.log(idPeliculaVerdadero);
   const [duration, setDuration] = useState([]);
   const [videoMovie, setVideoMovie] = useState([]);
-  const [idCinema, setIdCinema] = useState(() => {
-    const saved = localStorage.getItem("idSelectedCinema");
-    const initialValue = saved ? JSON.parse(saved) : "345sdfcg";
-    return initialValue;
-  });
+  const [idCinema, setIdCinema] = useState(cinema)
+  // const [idCinema, setIdCinema] = useState(() => {
+  //   const saved = localStorage.getItem("idSelectedCinema");
+  //   const initialValue = saved ? JSON.parse(saved) : "345sdfcg";
+  //   return initialValue;
+  // });
 
   const [hourSelected, setHourSelected] = useState(false);
 
@@ -93,6 +92,11 @@ const DetailMovie = () => {
   }, []);
 
   const funtionMovieInfo1 = funtionMovie.filter((elemento) => elemento.movie_id == idPeliculaVerdadero);
+  
+  if (funtionMovieInfo1.length > 0) {
+    onFuntionMovieInfo(funtionMovieInfo1[0]);
+  }
+
   let dateFuntion = "";
   let hourFuntion = "";
   if (funtionMovieInfo1.length > 0 ) {
@@ -162,7 +166,7 @@ console.log(movies1)
           </div>
           <div className='flex-col w-full h-full'>
           <h6 className='font-inter text-base mt-7 mb-3 font-bold'>Trailer</h6>
-          <iframe width="550" height="315" src={linkEmbed} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe width="550" height="315" src={linkEmbed} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
           <h6 className='font-bold my-3'>Sipnosis</h6>
           <p className='w-full text-lg font-normal font-inter text-justify'>{movies1.overview}</p>
           </div>
@@ -181,9 +185,9 @@ console.log(movies1)
         </button>
         <br></br>
         
-        <button onClick={() => navigate('select_tickets') } className={`w-80 my-3 text-lg font-normal rounded-full ${hourSelected ? 'bg-gray-300 hover:bg-gray-400' : 'bg-gray-200 cursor-not-allowed'} shadow-md`} disabled={!hourSelected}>
+        <Link to='/selectTickets' className={`w-80 my-3 text-lg font-normal rounded-full ${hourSelected ? 'bg-gray-300 hover:bg-gray-400' : 'bg-gray-200 cursor-not-allowed'} shadow-md`} disabled={!hourSelected}>
             Seleccionar los boletos
-          </button>
+          </Link>
         
         
       </div>
