@@ -12,10 +12,9 @@ export const getAllCinemas=async()=>{
         return []
     }
 }
-
-export const getFuntion=async(idFuntion)=>{
+export const getFuntionAll = async()=>{
     try {
-        const {data}=await axios.get(endpoint.getFuntion(idFuntion));
+        const {data}= await axios.get(endpoint.getFuntionAll);
         return data
         
     } catch (error) {

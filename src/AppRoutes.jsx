@@ -4,8 +4,8 @@ import CardList from './components/CardList'
 import { Route, Routes } from 'react-router'
 import Seats from './components/Seats'
 import SelectTickets from './components/SelectTickets'
-
-
+import DetailMovie from './components/DetailMovie'
+import PurchaseSummary from './components/PurchaseSummary'
 const INITIALCINEMA = localStorage.getItem("idSelectedCinema") ?? 0;
 const INITIALDATE = localStorage.getItem("idSelectedDate");
 

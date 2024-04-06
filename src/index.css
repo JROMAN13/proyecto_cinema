@@ -5,10 +5,14 @@
 @layer base {
     @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
     .textPrimary {
         font-family: "Inter", sans-serif;
     }
     .textSecundary{ font-family: "Roboto", sans-serif;}
+    
 
     body{
         background-color: white;
