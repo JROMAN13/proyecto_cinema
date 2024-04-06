@@ -182,7 +182,7 @@ console.log(movies1)
         <br></br>
         
         <button onClick={() => navigate('select_tickets') } className={`w-80 my-3 text-lg font-normal rounded-full ${hourSelected ? 'bg-gray-300 hover:bg-gray-400' : 'bg-gray-200 cursor-not-allowed'} shadow-md`} disabled={!hourSelected}>
-            Seleccione los asientos
+            Seleccionar los boletos
           </button>
         
         
