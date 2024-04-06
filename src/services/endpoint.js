@@ -2,7 +2,7 @@ const API_TMDB_BASE=`https://api.themoviedb.org/3/movie/`
 const API_TMDB=`${API_TMDB_BASE}now_playing`
 const API_TMDB_GENRE=`https://api.themoviedb.org/3/genre/movie/list`
 const API_KEY=`0796a7a279ae0c5e17ea87dc788ac2ba`
-const URL_BASE_BACK=`http://localhost:3000/`
+const URL_BASE_BACK=`https://minibackend-cinema.onrender.com/`
 
 const endpoint={
     getAllMovies:`${API_TMDB}?api_key=${API_KEY}&language=es-ES`,
