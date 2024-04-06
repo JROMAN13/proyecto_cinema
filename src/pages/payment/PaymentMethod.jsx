@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcVisa, faCcMastercard, faCcAmex } from '@fortawesome/free-brands-svg-icons';
 import PurchaseSummary from "../../components/PurchaseSummary";
+import { getFuntion } from "../../services/cinemaServices";
 
 
-const PaymentMethod = ({idFuntion}) => {
+const PaymentMethod = ({idFunction = `b0001ab`}) => {
   const [email, setEmail] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [cardHolder, setCardHolder] = useState("");
