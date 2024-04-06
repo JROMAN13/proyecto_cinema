@@ -29,10 +29,10 @@ const AppRoutes = () => {
         <Route element={<Layout handleSelection={handleSelection}/>}>
           <Route index element={<CardList dataSelected={dataRecibida}/>}></Route>
           <Route path="details/:idPelicula" element={<DetailMovie cinema={dataRecibida.cinema} onFuntionMovieInfo={handleIdFuntion} />}/>
-          <Route path='seats' element={<Seats/>}></Route>
+          <Route path='seats' element={<Seats idFunction={funtionSelected.id}/>}></Route>
           <Route path='selectTickets' element={<SelectTickets idFunction={funtionSelected.id}/>}></Route>
           <Route path="/payment" element={<PaymentMethod idFunction={funtionSelected.id}/>}></Route>
-          <Route path="/checkout" element={<SuccessPage/>}></Route>
+          <Route path="/checkout" element={<SuccessPage idFunction={funtionSelected.id}/>}></Route>
           <Route path="/codPay" element={<TicketCard/>}></Route>
         </Route>
       </Routes>

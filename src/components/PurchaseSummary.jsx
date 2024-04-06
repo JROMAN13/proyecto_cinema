@@ -39,25 +39,57 @@ const PurchaseSummary = ({ funtion, showOptionalSections = false, quantities = [
     }, [idCinema]);
 
     const [isFormComplete, setIsFormComplete] = useState(false);
-    const [purchase, setPurchase] = useState({});
+    // const [purchase, setPurchase] = useState({});
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(movie && cinema && funtion && totalCompra > 0 && quantities.length) {
+        // if(movie && cinema && funtion && totalCompra > 0 && quantities.length) {
+        //     const totalCantidad = quantities.reduce((total, item) => total + item.quanty, 0);
+        //     setIsFormComplete(true)
+        //     const purchase= {
+        //         cinema_id:cinema.id,
+        //         date:funtion.date,
+        //         idFuntion:funtion.id,
+        //         totalPay:totalCompra,
+        //         moviePosterPath: movie.poster_path,
+        //         movieTitle: movie.title,
+        //         cinemaName: cinema.name,
+        //         tickets:totalCantidad
+        //     };
+        //     console.log(purchase)
+        //     localStorage.setItem('purchase', JSON.stringify(purchase))
+        // }
+
+        if (movie && cinema && funtion && totalCompra > 0 && quantities.length) {
             const totalCantidad = quantities.reduce((total, item) => total + item.quanty, 0);
-            setIsFormComplete(true)
-            setPurchase( {
-                cinema_id:cinema.id,
-                date:funtion.date,
-                idFuntion:funtion.id,
-                totalPay:totalCompra,
+            setIsFormComplete(true);
+        
+            // Lee los datos existentes del localStorage
+            const existingPurchases = JSON.parse(localStorage.getItem('purchases')) || [];
+        
+            // Crea un nuevo objeto de compra
+            const purchase = {
+                cinema_id: cinema.id,
+                date: funtion.date,
+                idFuntion: funtion.id,
+                totalPay: totalCompra,
                 moviePosterPath: movie.poster_path,
                 movieTitle: movie.title,
                 cinemaName: cinema.name,
-                tickets:totalCantidad
-            });
+                tickets: totalCantidad
+            };
+        
+            // Agrega el nuevo objeto de compra al arreglo existente
+            const updatedPurchases = [...existingPurchases, purchase];
+        
+            // Guarda el arreglo actualizado en el localStorage
+            localStorage.setItem('purchases', JSON.stringify(updatedPurchases));
+        
+            console.log(updatedPurchases);
         }
     }
+
+    
 
 
     return (

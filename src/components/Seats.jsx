@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import PurchaseSummary from "./PurchaseSummary";
 import SeatsSelection from "./SeatsSelection";
 
-const Seats = ({ idFunction = `b0001ab` }) => {
+const Seats = ({ idFunction}) => {
   const [funtion, setfuntion] = useState({});
   const [typeRoom, setTypeRoom] = useState("");
   const [room, setRoom] = useState({});

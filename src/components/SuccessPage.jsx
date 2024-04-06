@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcMastercard } from '@fortawesome/free-brands-svg-icons';
 
 
-const SuccessPage = () => {
+const SuccessPage = (idFunction) => {
+  console.log(idFunction)
   const funcionCine = {
     "id": "b0001ab",
     "cinema_id": "345sdfcg",
