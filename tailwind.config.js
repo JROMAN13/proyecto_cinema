@@ -1,11 +1,29 @@
+import { Button } from 'flowbite-react'
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./index.html",
-  "./src/**/*.{js,ts,jsx,tsx}",
-],
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    'node_modules/flowbite-react/lib/esm/**/*.js',
+    "./node_modules/tailwind-datepicker-react/dist/**/*.js", 
+  ],
   theme: {
-    extend: {},
+    colors:{
+      'blue-button':'#1C508DFF',
+      'gray-text':' #565D6DFF'
+    },
+    extend: {
+      fontFamily: {
+        'epilogue': ['Epilogue', 'sans-serif'],
+        'inter': ['Inter', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+      }
+    }
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }
+
 

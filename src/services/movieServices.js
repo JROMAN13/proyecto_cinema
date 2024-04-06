@@ -6,7 +6,7 @@ export const getAllMovies=async()=>{
 
     try {
         const {data}=await axios.get(endpoint.getAllMovies);
-        return data
+        return data.results
         
     } catch (error) {
         console.error(error);
@@ -25,6 +25,27 @@ export const getMovie=async(idMovie)=>{
     }
 }
 
+export const getVideoMovie = async(idMovie) =>{
+    try {
+        const {data}=await axios.get(endpoint.getVideoMovie(idMovie));
+        return data
+        
+    } catch (error) {
+        console.error(error);
+        return null
+    }
+}
+export const getMovieDuration=async(idMovie)=>{
+    try {
+        const {data}=await axios.get(endpoint.getMovie(idMovie));
+        return data.runtime
+        
+    } catch (error) {
+        console.error(error);
+        return null
+    }
+}
+
 export const getTrailerMovie=async(idMovie)=>{
     try {
         const {data}= await axios.get(endpoint.getVideoMovie(idMovie));
@@ -32,5 +53,15 @@ export const getTrailerMovie=async(idMovie)=>{
     } catch (error) {
         console.error(error);
         return []
+    }
+}
+
+export const getMoviesGenres = async () =>{
+    try {
+        const {data} = await axios.get(endpoint.getGenresMovies);
+        return data.genres    
+    } catch (error) {
+        console.error(error);
+        return [];
     }
 }
