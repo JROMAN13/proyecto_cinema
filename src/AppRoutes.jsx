@@ -6,6 +6,9 @@ import Seats from './components/Seats'
 import SelectTickets from './components/SelectTickets'
 import DetailMovie from './components/DetailMovie'
 import PaymentMethod from './pages/payment/PaymentMethod'
+import SuccessPage from './components/SuccessPage'
+import TicketCard from './components/CodeQr'
+
 const INITIALCINEMA = localStorage.getItem("idSelectedCinema") ?? null;
 const INITIALDATE = localStorage.getItem("idSelectedDate");
 
@@ -26,9 +29,11 @@ const AppRoutes = () => {
         <Route element={<Layout handleSelection={handleSelection}/>}>
           <Route index element={<CardList dataSelected={dataRecibida}/>}></Route>
           <Route path="details/:idPelicula" element={<DetailMovie cinema={dataRecibida.cinema} onFuntionMovieInfo={handleIdFuntion} />}/>
-          <Route path='seats' element={<Seats idFunction={funtionSelected.id}/>}></Route>
+          <Route path='seats' element={<Seats/>}></Route>
           <Route path='selectTickets' element={<SelectTickets idFunction={funtionSelected.id}/>}></Route>
-          <Route path="/payment" element={<PaymentMethod idFunction={funtionSelected.id}></PaymentMethod>}></Route>
+          <Route path="/payment" element={<PaymentMethod idFunction={funtionSelected.id}/>}></Route>
+          <Route path="/checkout" element={<SuccessPage/>}></Route>
+          <Route path="/codPay" element={<TicketCard/>}></Route>
         </Route>
       </Routes>
     </>

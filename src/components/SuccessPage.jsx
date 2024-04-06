@@ -52,6 +52,7 @@ const SuccessPage = () => {
             showRoom={true} 
             idroom={true} 
             totalCompra={true} 
+            path='/codPay'
           />
         </div>
       </div>

@@ -173,7 +173,7 @@ const PaymentMethod = ({idFunction = `b0001ab`}) => {
           </button>
         </form>
       </div>
-      <PurchaseSummary funtion={funtion} path='/payment'></PurchaseSummary>
+      <PurchaseSummary funtion={funtion} path='/checkout'></PurchaseSummary>
     </>
   );
 };
